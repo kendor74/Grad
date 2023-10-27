@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace EducationlPlatform.Controllers
+﻿namespace EducationlPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
