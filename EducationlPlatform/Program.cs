@@ -1,3 +1,4 @@
+using EducationlPlatform.Models.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +11,15 @@ builder.Services.AddSwaggerGen();
 
 
 //Add ConnectionStrings
-//var connection = builder.Configuration.GetConnectionString("RestApi");
-//builder.Services.AddDbContext<ReDbContext>(options => options.UseSqlServer(connection));
+var connection = builder.Configuration.GetConnectionString("EDU_DataBase");
+builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
-//var IdentityConnection = builder.Configuration.GetConnectionString("IdentityApi");
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(IdentityConnection));
 
+//Authentication
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityUserDbContext>()
+    .AddDefaultTokenProviders();
 
 
 
