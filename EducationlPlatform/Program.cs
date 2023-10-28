@@ -1,6 +1,3 @@
-using EducationlPlatform.Models.Context;
-using EducationlPlatform.Models.InterfaceHandler;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
