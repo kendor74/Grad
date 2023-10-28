@@ -7,4 +7,7 @@ global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using EducationlPlatform.Models.Interfaces;
 global using EducationlPlatform.Models.Context;
 global using EducationlPlatform.Models.InterfaceHandler;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
 
