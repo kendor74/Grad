@@ -1,6 +1,6 @@
-﻿namespace EducationlPlatform.Models.User
+﻿namespace EducationlPlatform.Models.Users
 {
-    public class User
+    public class User : IdentityUser
     {
         public string Image { get; set; }
         public string CreditCard { get; set; }

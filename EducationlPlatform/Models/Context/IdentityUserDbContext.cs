@@ -1,5 +1,4 @@
-﻿
-namespace EducationlPlatform.Models
+﻿namespace EducationlPlatform.Models
 {
     public class IdentityUserDbContext : IdentityDbContext
     {
@@ -7,6 +6,6 @@ namespace EducationlPlatform.Models
         {
         }
 
-                
+         public DbSet<User> Users { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using EducationlPlatform.Models.Context;
+using EducationlPlatform.Models.InterfaceHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 
+//Inject Interfaces with Services
 
+builder.Services.AddScoped<IService<Student> , StudentServices>();
+builder.Services.AddScoped<IStudent , StudentServices>();
+
+builder.Services.AddScoped<IService<Admin>, AdminServices>();
+builder.Services.AddScoped<IAdmin, AdminServices>();
+
+builder.Services.AddScoped<IService<Tutor>, TutorServices>();
+builder.Services.AddScoped<ITutor, TutorServices>();
 
 
 

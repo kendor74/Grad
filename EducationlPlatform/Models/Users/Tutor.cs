@@ -1,6 +1,6 @@
 ﻿using EducationlPlatform.Models.Services;
 
-namespace EducationlPlatform.Models.User
+namespace EducationlPlatform.Models.Users
 {
     public class Tutor
     {

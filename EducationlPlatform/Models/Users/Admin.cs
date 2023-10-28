@@ -1,4 +1,4 @@
-﻿namespace EducationlPlatform.Models.User
+﻿namespace EducationlPlatform.Models.Users
 {
     public class Admin : User
     {
