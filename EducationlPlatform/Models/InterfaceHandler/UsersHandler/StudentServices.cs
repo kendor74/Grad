@@ -1,8 +1,10 @@
-﻿namespace EducationlPlatform.Models.InterfaceHandler
+﻿using EducationlPlatform.Models.Interfaces.UserInterfaces;
+
+namespace EducationlPlatform.Models.InterfaceHandler.UsersHandler
 {
-    public class TutorServices : IService<Tutor>, ITutor
+    public class StudentServices : IService<Student>, IStudent
     {
-        public Task<Tutor> Add(Tutor entity)
+        public Task<Student> Add(Student entity)
         {
             throw new NotImplementedException();
         }
@@ -17,17 +19,17 @@
             throw new NotImplementedException();
         }
 
-        public Task<Tutor> FindById(int id)
+        public Task<Student> FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Tutor>> GetAll()
+        public Task<IEnumerable<Student>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Tutor>? GetById(int entityId)
+        public Task<Student>? GetById(int entityId)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +39,7 @@
             throw new NotImplementedException();
         }
 
-        public Task<Tutor> Update(Tutor entity, int id)
+        public Task<Student> Update(Student entity, int id)
         {
             throw new NotImplementedException();
         }

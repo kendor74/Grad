@@ -1,4 +1,4 @@
-﻿namespace EducationlPlatform.Models.Interfaces
+﻿namespace EducationlPlatform.Models.Interfaces.UserInterfaces
 {
     public interface ITutor
     {

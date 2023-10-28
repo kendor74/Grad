@@ -1,9 +1,8 @@
-﻿
-namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.InterfaceHandler.ServicesHandler
 {
-    public class StudentServices : IService<Student> , IStudent
+    public class RoomServices : IService<Room>
     {
-        public Task<Student> Add(Student entity)
+        public Task<Room> Add(Room entity)
         {
             throw new NotImplementedException();
         }
@@ -18,17 +17,17 @@ namespace EducationlPlatform.Models.InterfaceHandler
             throw new NotImplementedException();
         }
 
-        public Task<Student> FindById(int id)
+        public Task<Room> FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Student>> GetAll()
+        public Task<IEnumerable<Room>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Student>? GetById(int entityId)
+        public Task<Room>? GetById(int entityId)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +37,7 @@ namespace EducationlPlatform.Models.InterfaceHandler
             throw new NotImplementedException();
         }
 
-        public Task<Student> Update(Student entity, int id)
+        public Task<Room> Update(Room entity, int id)
         {
             throw new NotImplementedException();
         }

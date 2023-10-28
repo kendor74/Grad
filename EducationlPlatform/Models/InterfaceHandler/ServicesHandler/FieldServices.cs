@@ -1,8 +1,8 @@
-﻿namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.InterfaceHandler.ServicesHandler
 {
-    public class AdminServices : IService<Admin>, IAdmin
+    public class FieldServices : IService<Field>
     {
-        public Task<Admin> Add(Admin entity)
+        public Task<Field> Add(Field entity)
         {
             throw new NotImplementedException();
         }
@@ -17,17 +17,17 @@
             throw new NotImplementedException();
         }
 
-        public Task<Admin> FindById(int id)
+        public Task<Field> FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Admin>> GetAll()
+        public Task<IEnumerable<Field>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Admin>? GetById(int entityId)
+        public Task<Field>? GetById(int entityId)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@
             throw new NotImplementedException();
         }
 
-        public Task<Admin> Update(Admin entity, int id)
+        public Task<Field> Update(Field entity, int id)
         {
             throw new NotImplementedException();
         }

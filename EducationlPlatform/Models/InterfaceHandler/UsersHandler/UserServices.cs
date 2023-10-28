@@ -1,7 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using EducationlPlatform.Models.Interfaces.UserInterfaces;
 
-namespace EducationlPlatform.Models.InterfaceHandler
+namespace EducationlPlatform.Models.InterfaceHandler.UsersHandler
 {
     public class UserServices : IUser
     {
@@ -22,7 +23,7 @@ namespace EducationlPlatform.Models.InterfaceHandler
         }
 
 
-        public Task<string> JwtToken(User user)
+        public async Task<string> JwtToken(User user)
         {
             IEnumerable<Claim> claims = new List<Claim>
             {
