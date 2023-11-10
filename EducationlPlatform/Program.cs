@@ -1,4 +1,7 @@
 
+using EducationlPlatform.Models.InterfaceHandler.UsersHandler;
+using EducationlPlatform.Models.Interfaces.UserInterfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,15 +13,54 @@ builder.Services.AddSwaggerGen();
 
 
 //Add ConnectionStrings
-//var connection = builder.Configuration.GetConnectionString("RestApi");
-//builder.Services.AddDbContext<ReDbContext>(options => options.UseSqlServer(connection));
-
-//var IdentityConnection = builder.Configuration.GetConnectionString("IdentityApi");
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(IdentityConnection));
+var connection = builder.Configuration.GetConnectionString("EDU_DataBase");
+builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
 
+//Authentication
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<IdentityUserDbContext>()
+    .AddDefaultTokenProviders();
 
 
+//Inject Interfaces with Services
+
+builder.Services.AddScoped<IService<Student> , StudentServices>();
+builder.Services.AddScoped<IStudent , StudentServices>();
+
+builder.Services.AddScoped<IService<Admin>, AdminServices>();
+builder.Services.AddScoped<IAdmin, AdminServices>();
+
+builder.Services.AddScoped<IService<Tutor>, TutorServices>();
+builder.Services.AddScoped<ITutor, TutorServices>();
+
+
+
+//JWT Bearer Token
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+}).AddJwtBearer(options =>
+{
+#pragma warning disable CS8604 // Possible null reference argument.
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        RequireExpirationTime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
+        ValidAudience = builder.Configuration.GetSection("Jwt:Audiance").Value,
+        IssuerSigningKey =
+        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value))
+    };
+#pragma warning restore CS8604 // Possible null reference argument.
+});
 
 
 
