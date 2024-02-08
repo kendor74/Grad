@@ -2,10 +2,13 @@
 {
     public interface IUser
     {
-        Task<User> Login(User user);
-        Task<User> SignUp(User user);
+        Task<UserDto> Login(UserDto user);
+        Task<UserDto> SignUp(UserDto user);
         Task<bool> Logout();
+        Task<IEnumerable<IdentityUser>> GetUsers();
+        Task<UserDto> Edit(string id, UserDto userDto);
+        Task<string> ChangePassword(string id, string currentPassword, string newPassword);
 
-        Task<string> JwtToken(User user);
+        //Task<string> JwtToken(UserDto user);
     }
 }

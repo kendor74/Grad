@@ -2,7 +2,10 @@
 {
     public class User : IdentityUser
     {
-        public string Image { get; set; }
-        public string CreditCard { get; set; }
+        public string? Image { get; set; }
+        public byte Age { get; set; }
+        public string City { get; set; }
+        public string Gender { get; set; }
+        public DateTime RegisteredDate { get; set; } = DateTime.Now;
     }
 }

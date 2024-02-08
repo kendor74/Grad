@@ -1,11 +1,11 @@
 ﻿namespace EducationlPlatform.Models
 {
-    public class IdentityUserDbContext : IdentityDbContext
+    public class IdentityUserDbContext : IdentityDbContext<User>
     {
-        public IdentityUserDbContext(DbContextOptions option) : base(option)
+        public IdentityUserDbContext(DbContextOptions<IdentityUserDbContext> option) : base(option)
         {
         }
 
-         //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

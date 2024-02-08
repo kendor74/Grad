@@ -10,7 +10,8 @@ global using EducationlPlatform.Models.Users;
 global using EducationlPlatform.Models.Interfaces;
 global using EducationlPlatform.Models.Context;
 global using EducationlPlatform.Models.Services;
-global using EducationlPlatform.Models.Interfaces.ServiceInterfaces;
+global using EducationlPlatform.Models.InterfaceHandler;
+global using EducationlPlatform.Models.DTOs;
 global using EducationlPlatform.Models.Interfaces.UserInterfaces;
 
 

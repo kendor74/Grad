@@ -2,12 +2,22 @@
 {
     public class Transaction
     {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public float Amount { get; set; }
+        public int TransactionId { get; set; }
 
-        //public virtual User StudentId { get; set; }
-        //public virtual User TutorId { get; set; }
-        //public virtual Room RoomId { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public float TransactionAmount { get; set; }
+        // Fees for the platform
+        public float PlatformFees { get; set; }
+
+        // Payer (Student)
+        public string PayerUserId { get; set; }
+        public User PayerUser { get; set; }
+
+        // Payee (Tutor)
+        public string PayeeUserId { get; set; }
+        public User PayeeUser { get; set; }
+
+        public int RoomId { get; set; }
+        public Room Room { get; set; }
     }
 }

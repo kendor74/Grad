@@ -1,7 +1,4 @@
 
-using EducationlPlatform.Models.InterfaceHandler.UsersHandler;
-using EducationlPlatform.Models.Interfaces.UserInterfaces;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,23 +14,26 @@ var connection = builder.Configuration.GetConnectionString("EDU_DataBase");
 builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(connection));
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
-
 //Authentication
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<IdentityUserDbContext>()
     .AddDefaultTokenProviders();
 
 
 //Inject Interfaces with Services
 
-builder.Services.AddScoped<IService<Student> , StudentServices>();
-builder.Services.AddScoped<IStudent , StudentServices>();
 
-builder.Services.AddScoped<IService<Admin>, AdminServices>();
-builder.Services.AddScoped<IAdmin, AdminServices>();
+builder.Services.AddScoped<IUser, UserServices>();
 
-builder.Services.AddScoped<IService<Tutor>, TutorServices>();
-builder.Services.AddScoped<ITutor, TutorServices>();
+builder.Services.AddScoped<IRepository<Student>, RepositoryHandler<Student>>();
+builder.Services.AddScoped<IRepository<StudentRoom>, RepositoryHandler<StudentRoom>>();
+builder.Services.AddScoped<IRepository<TutorRoom>, RepositoryHandler<TutorRoom>>();
+builder.Services.AddScoped<IRepository<Tutor>, RepositoryHandler<Tutor>>();
+builder.Services.AddScoped<IRepository<Admin>, RepositoryHandler<Admin>>();
+builder.Services.AddScoped<IRepository<Room>, RepositoryHandler<Room>>();
+builder.Services.AddScoped<IRepository<Transaction>, RepositoryHandler<Transaction>>();
+builder.Services.AddScoped<IRepository<Department>, RepositoryHandler<Department>>();
+
 
 
 

@@ -6,6 +6,10 @@
         public DateTime Date { get; set; }
         public int Duration { get; set; }
         public float Cost { get; set; }
-        public List<string> ContentList { get; set; }
+
+
+        public virtual ICollection<StudentRoom> StudentRooms { get; set; } = new List<StudentRoom>();
+        public virtual ICollection<TutorRoom> TutorRooms{ get; set; } = new List<TutorRoom>();
+        
     }
 }
