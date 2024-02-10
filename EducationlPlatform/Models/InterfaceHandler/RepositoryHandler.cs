@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.InterfaceHandler
 {
     public class RepositoryHandler<T> : IRepository<T> where T : class
     {
@@ -67,6 +65,12 @@ namespace EducationlPlatform.Models.InterfaceHandler
         public async Task<int> Count()
         {
             return await _context.Set<T>().CountAsync();
+        }
+
+
+        public IEnumerable<T> Search(Func<T, bool> filter)
+        { 
+            return _context.Set<T>().Where(filter);
         }
     }
 }

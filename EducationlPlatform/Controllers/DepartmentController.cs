@@ -1,4 +1,6 @@
-﻿namespace EducationlPlatform.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace EducationlPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -47,6 +49,14 @@
         {
             await _repository.Delete(id);
             return Ok(await _repository.GetAll());
+        }
+
+        [HttpGet("Search")]
+        public async Task<IActionResult> SearchByLetter(string Letter)
+        {
+            var list = _repository.Search(l => l.DepartmentName.StartsWith(Letter));
+
+            return Ok((list.IsNullOrEmpty()) ? "No Data Found": list);
         }
     }
 }

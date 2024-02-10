@@ -10,9 +10,12 @@ builder.Services.AddSwaggerGen();
 
 
 //Add ConnectionStrings
-var connection = builder.Configuration.GetConnectionString("EDU_DataBase");
-builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(connection));
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+var IdentityConnection = builder.Configuration.GetConnectionString("EDU_DataBase_IdentityUser");
+builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(IdentityConnection));
+
+var AppConnection = builder.Configuration.GetConnectionString("EDU_DataBase_App");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(AppConnection));
+
 
 //Authentication
 builder.Services.AddIdentity<User, IdentityRole>()

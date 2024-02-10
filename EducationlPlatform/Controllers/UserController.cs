@@ -1,32 +1,18 @@
-﻿using EducationlPlatform.Models.InterfaceHandler;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Principal;
-
-namespace EducationlPlatform.Controllers
+﻿namespace EducationlPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IUser _context;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _config;
-        private readonly RoleManager<IdentityRole> _roleManager;
-
-        public UserController(IUser context ,UserManager<User> userManager, IConfiguration config
-            , RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+        
+        public UserController(IUser context)
         {
             _context = context;
-            _userManager = userManager;
-            _config = config;
-            _roleManager = roleManager;
-            _signInManager = signInManager;
-
         }
 
 
-        [HttpGet]
+        [HttpGet("Login")]
         public async Task<IActionResult> Login(string Email, string Password, string Role)
         {
             UserDto userDto = new UserDto();
@@ -39,6 +25,8 @@ namespace EducationlPlatform.Controllers
             return (result != null) ? Ok(result) : BadRequest("Invalid Login");
         }
 
+
+        //Need
         [HttpPost("Register")]
         public async Task<IActionResult> Register(string Email, string Password, string Phone, string username, IFormFile Image
                                                  , string City, byte Age, string Gender)
@@ -82,7 +70,20 @@ namespace EducationlPlatform.Controllers
         }
 
 
+        [HttpPost("Changing Password")]
+        public async Task<IActionResult> ChangePassword(string id,string currentPassword,string newPassword)
+        {
+            var result = _context.ChangePassword(id, currentPassword, newPassword);
 
+            return Ok(result);
+        }
+
+        [HttpPut("Changing Profile")]
+        public async Task<IActionResult> EditUserProfile(string id,UserDto user)
+        {
+            var result = await _context.Edit(id,user);
+            return Ok(result);
+        }
     
 
     }
