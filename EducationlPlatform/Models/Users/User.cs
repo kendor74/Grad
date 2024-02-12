@@ -6,6 +6,7 @@
         public byte Age { get; set; }
         public string City { get; set; }
         public string Gender { get; set; }
+        //credit card
         public DateTime RegisteredDate { get; set; } = DateTime.Now;
     }
 }
