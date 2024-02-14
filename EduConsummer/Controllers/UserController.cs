@@ -21,13 +21,31 @@
         [HttpPost]
         public async Task<IActionResult> SignUp(User user)
         {
+            user.Gender = Request.Form["gender"];
+
+
             ViewBag.Error("Creation Denied");
             var result = await _request.Post("api/User/Register", user);
 
             return (result != null ? RedirectToAction("/Home/Users") : RedirectToAction("Home", "SignUp"));
         }
 
+        //public IActionResult GetProfilePicture()
+        //{
+        //    //// Get the user's profile picture path from your data storage.
+        //    //var userProfilePicturePath = UserProfileService.GetProfilePicturePath(User.Identity.Name);
 
+        //    //if (System.IO.File.Exists(userProfilePicturePath))
+        //    //{
+        //    //    var imageBytes = System.IO.File.ReadAllBytes(userProfilePicturePath);
+        //    //    return File(imageBytes, "image/jpeg"); // Adjust the content type based on your image type.
+        //    //}
+
+        //    //// Return a default image or placeholder if the profile picture doesn't exist.
+        //    //var defaultImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/default-profile-picture.jpg");
+        //    //var defaultImageBytes = System.IO.File.ReadAllBytes(defaultImagePath);
+        //    //return File(defaultImageBytes, "image/jpeg");
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Users()
@@ -62,7 +80,22 @@
 
         public ActionResult UserProfile()
         {
-            return View();
+
+            //should display Student or Tutor
+            User user = new User
+            {
+                Email = "test@gmail.com",
+                UserName = "Test#20",
+                FirstName = "Test ",
+                LastName = "Test",
+                Role = "Stuendt",
+                City = "Cairo",
+                PhoneNumber = "01142647033",
+                Age = 22,
+                
+            };
+            //user.ImagePath = "icon-5359554_640.png";
+            return View(user);
         }
     }
 }

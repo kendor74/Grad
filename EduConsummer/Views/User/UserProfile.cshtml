@@ -1,29 +1,56 @@
-﻿@{
+﻿@model User
+@{
     Layout = "_Layout";
 }
 <head>
    
     <link rel="stylesheet" href="~/css/profile.css" />
+    <script>
+        let displaySave = (e) =>{
+            let edit = document.getElementById('profile-edit-btn')
+            edit.style.display = 'block'
+        }
+    </script>
 </head>
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="~/templet/assets/images/faces/face15.jpg" alt="" />
-                    <div class="file btn btn-lg btn-primary">
+                    @{
+                        if (Model.ImagePath != null)
+                        {
+                                <img src="~/Register/image/@Model.ImagePath" />
+                        }
+                        else
+                        {
+                            if (Model.Gender == "Female")
+                            {
+                                    <img src="~/Register/image/icon-5359554_640.png" alt="" />
+                            }
+                            else
+                            {
+                                    <img src="~/Register/image/icon-5359553_640.png" alt="" />
+                            }
+                        }
+                        
+                    }
+                    <div class="file btn btn-lg btn-primary" style="cursor:pointer;">
                         Change Photo
-                        <input type="file" name="file" />
+                        @using (Html.BeginForm("Create", "Content", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" style="cursor:pointer" />
+                        }
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="profile-head">
-                    <h5>
-                        Kshiti Ghelani
-                    </h5>
+                    <h1 style="color:#425cbb">
+                        @Model.FirstName @Model.LastName
+                    </h1>
                     <h6>
-                        Web Developer and Designer
+                        @Model.Role
                     </h6>
                     
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -35,11 +62,11 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" onclick="displaySave()"/>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            @* <div class="col-md-4">
                 <div class="profile-work">
                     <p>WORK LINK</p>
                     <a href="">Website Link</a><br />
@@ -52,16 +79,17 @@
                     <a href="">WooCommerce</a><br />
                     <a href="">PHP, .Net</a><br />
                 </div>
-            </div>
+            </div >*@
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>User Id</label>
+                                <label>UserName</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Kshiti123</p>
+                                @* like Discord kendor#6760 *@
+                                <p>@Model.UserName</p> 
                             </div>
                         </div>
                         <div class="row">
@@ -69,7 +97,7 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Kshiti Ghelani</p>
+                                <p>@Model.FirstName @Model.LastName</p>
                             </div>
                         </div>
                         <div class="row">
@@ -77,33 +105,77 @@
                                 <label>Email</label>
                             </div>
                             <div class="col-md-6">
-                                <p>kshitighelani@gmail.com</p>
+                                <p>@Model.Email</p>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Age</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Age</p>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Phone</label>
                             </div>
                             <div class="col-md-6">
-                                <p>123 456 7890</p>
+                                <p>@Model.PhoneNumber</p>
                             </div>
                         </div>
+
+
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Profession</label>
+                                <label>City</label>
                             </div>
                             <div class="col-md-6">
-                                <p>Web Developer and Designer</p>
+                                <p>@Model.City</p>
                             </div>
                         </div>
-                    </div>
+                        
+                       
+                        @{
+                            if(Model.Role == "Tutor")
+                            {
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label>Department</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Web Developer and Designer</p>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Description :</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <p style="font-size:13px;color: #8d8d8d;">
+                                                CairoCairoCairoCairoCairoCairoCairoCairoCairoCairo
+                                                CairoCairoCairoCairoCairoCairoCairoCairoCairoCairo
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+                      
                 </div>
 
-                <div class="col-md-2">
-                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" style="background-color:#1d7443;
+                <div class="col-md-2" style="display:none" id="profile-edit-btn">
+                    <input type="submit" class="profile-edit-btn"  name="btnAddMore" value="Save" style="background-color:#1d7443;
                        margin-left:540px;
                        padding:10px;
                        width:109%;
+                       
                         " />
                 </div>
             </div>

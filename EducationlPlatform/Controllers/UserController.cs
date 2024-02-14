@@ -28,22 +28,9 @@
 
         //Need
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(string Email, string Password, string Phone, string username, IFormFile Image
-                                                 , string City, byte Age, string Gender)
+        public async Task<IActionResult> Register(UserDto user)
         {
-            UserDto user = new UserDto
-            {
-                Email = Email,
-                Password = Password,
-                PhoneNumber = Phone,
-                Image = Image,
-                UserName = username,
-                City = City,
-                Age = Age,
-                Gender = Gender
-            };
-
-
+            
             var result = await _context.SignUp(user);
 
             //return (result.Error.IsNullOrEmpty()) ? Ok(result) : BadRequest(result.Error);

@@ -1,6 +1,8 @@
-﻿@{
+﻿@model User
+@{
     ViewData["Title"] = "Home Page";
     Layout = null;
+    string firstName, lastName;
 }
 
 <!DOCTYPE html>
@@ -17,6 +19,16 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="~/Register/css/style.css" />
+
+    <script>
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
+    </script>
+
 </head>
 <body>
     <div class="main">
@@ -26,34 +38,35 @@
                     <img src="~/Register/image/signup-img.jpg" alt="" />
                 </div>
                 <div class="signup-form">
-                    <form method="POST" class="register-form" id="register-form"
+                    <form class="register-form" id="register-form"
                     style="padding: 0 35px 0 70px;
                            background-color: #1a3970;
                            margin-top: -17px;">
                         <h2>student registration form</h2>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="name">Name :</label>
-                                <input type="text" name="name" id="name" required />
+                                <label for="name">First Name :</label>
+                                <input type="text" name="name" id="name" required asp-for="FirstName"/>
                             </div>
                             <div class="form-group">
-                                <label for="father_name">Father Name :</label>
+                                <label for="father_name">Last Name :</label>
                                 <input type="text"
                                        name="father_name"
                                        id="father_name"
-                                       required />
+                                       required 
+                                       asp-for="LastName"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="Email">Email :</label>
-                            <input type="email" name="Email" id="pincode" />
+                            <input type="email" name="Email" id="pincode" asp-for="Email"/>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Age :</label>
-                                <input type="text" name="Age" id="name" required />
+                                <input type="number" name="Age" id="name" required asp-for="Age"/>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number :</label>
@@ -62,7 +75,8 @@
                                        pattern="^01[0-2,5]{1}[0-9]{8}$"
                                        placeholder="(+20) 01X XXX XXX XX"
                                        id="father_name"
-                                       required />
+                                       required 
+                                       asp-for="PhoneNumber"/>
                             </div>
                         </div>
                         <!-- <div class="form-group">
@@ -114,10 +128,9 @@
                             <div class="form-group">
                                 <label for="state">Role :</label>
                                 <div class="form-select">
-                                    <select name="role" id="state">
-                                        <option value=""></option>
-                                        <option value="us">Student</option>
-                                        <option value="uk">Tutor</option>
+                                    <select name="role" id="state" asp-for="Role">
+                                        <option value="st">Student</option>
+                                        <option value="tu">Tutor</option>
                                     </select>
                                     <span class="select-icon">
                                         <i class="zmdi zmdi-chevron-down"></i>
@@ -128,10 +141,9 @@
                             <div class="form-group">
                                 <label for="city">City :</label>
                                 <div class="form-select">
-                                    <select name="city" id="city">
-                                        <option value=""></option>
-                                        <option value="losangeles">Los Angeles</option>
-                                        <option value="washington">Washington</option>
+                                    <select name="city" id="city" asp-for="City">
+                                        <option value="cr">Cairo</option>
+                                        <option value="gi">Giza</option>
                                     </select>
                                     <span class="select-icon">
                                         <i class="zmdi zmdi-chevron-down"></i>
@@ -157,19 +169,22 @@
                           </div>
                         </div> -->
                         <div class="form-group">
-                            <label for="email">Password :</label>
-                            <input type="password" name="password" id="password" />
+                            <label>Password :</label>
+                            <input type="password" name="password" id="password" asp-for="Password"/>
                         </div>
                         <div class="form-group">
-                            <label for="email">Confirm Password :</label>
-                            <input type="password" name="password" id="password" />
+                            <label >Confirm Password :</label>
+                            <input type="password" name="confirm_password" id="confirm_password" />
                         </div>
                         <div class="form-submit">
                             <input type="submit"
                                    value="Reset All"
                                    class="submit"
                                    name="reset"
-                                   id="reset" />
+                                   id="reset"
+                                   asp-action="SignUp"/>
+
+
                             <input type="submit"
                                    value="Submit"
                                    class="submit"
@@ -183,6 +198,10 @@
     </div>
 
     <!-- JS -->
+    
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/Register/vendor/jquery/jquery.min.js"></script>
     <script src="~/Register/js/main.js"></script>
 </body>

@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace EducationlPlatform.Models.InterfaceHandler
@@ -54,7 +55,9 @@ namespace EducationlPlatform.Models.InterfaceHandler
 
             if (userIdentity != null)
             {
-                //var role = await _userManager.GetRolesAsync(userIdentity);
+
+                //add role
+                //user.Role = await _userManager.getR
                 await _userManager.CheckPasswordAsync(userIdentity, user.Password);
                 user.Email = user.Email;
                 user.Password = user.Password;
@@ -85,35 +88,16 @@ namespace EducationlPlatform.Models.InterfaceHandler
             IdentityResult result;
             var identityUser = new User
             {
-                UserName = user.UserName,
+                //UserName = user.FirstName + 
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 City = user.City,
                 Age = user.Age,
-                Image = "null",
                 Gender = user.Gender,
                 EmailConfirmed = true
             };
 
-            //if (user.Image != null)
-            //{
-            //    using (var memoryStream = new MemoryStream())
-            //    {
-            //        //TODO
-
-            //        //await user.Image.CopyToAsync(memoryStream);
-            //        //var filename = Path.GetFileName(FileStream.FileName);
-            //        //var path = Path.Combine(Server.MapPath("~/Uploads/Photo/"), filename);
-            //        //file.SaveAs(path);
-            //        //identityUser.Image = memoryStream.ToArray();
-
-            //    }
-
-            //}
-            //else
-            //{
-            //    identityUser.Image = "D:\\images\\1.jpg";
-            //}
+           
 
 
             try
@@ -121,6 +105,14 @@ namespace EducationlPlatform.Models.InterfaceHandler
                 result = await _userManager.CreateAsync((User)identityUser, user.Password);
                 if (await _roleManager.FindByIdAsync(identityUser.Id) != null && result.Succeeded)
                 {
+                    //is IdentityUser include the id after CreateAsync
+
+                    //save image into wwwroot ?? directory and display the path
+                    string imageName= await UploadImage(user.Image ,identityUser.UserName ,identityUser.Id);
+                    identityUser.Image = imageName;
+                    await _userManager.UpdateAsync(identityUser);
+
+                    //saving Role of the identity
                     IdentityRole roles = new IdentityRole();
 
                     roles.Id = identityUser.Id;
@@ -138,7 +130,6 @@ namespace EducationlPlatform.Models.InterfaceHandler
                     Image = user.Image
                 };
                 userDto.EmailToken = Emailtoken;
-                userDto.Id = identityUser.Id;
                 userDto.JwtToken = JwtToken(userDto);
 
 
@@ -198,5 +189,20 @@ namespace EducationlPlatform.Models.InterfaceHandler
             return "The Password is Invalid !";
         }
        
+
+        private async Task<string> UploadImage(IFormFile Image , string UserName , string UserId)
+        {
+            var imageName = $"{UserName}_{UserId}_{Guid.NewGuid().ToString()}.jpg";
+
+            // Save the image to the folder
+            var imagePath = Path.Combine("wwwroot/images", imageName);
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await Image.CopyToAsync(stream);
+            }
+
+           
+            return imagePath;
+        }
     }
 }
