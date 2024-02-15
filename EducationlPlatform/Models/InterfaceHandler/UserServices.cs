@@ -149,9 +149,9 @@ namespace EducationlPlatform.Models.InterfaceHandler
             return list;
         }
 
-        public async Task<UserDto> Edit(string id,UserDto userDto)
+        public async Task<UserDto> Edit(UserDto userDto)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
 
             user.Email = userDto.Email;
             user.PhoneNumber = userDto.PhoneNumber;

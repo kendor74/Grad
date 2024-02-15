@@ -28,22 +28,14 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
+                    @* putting @Model.ImagePath   *@
+                    <img id="preview" src="~/Register/image/icon-5359553_640.png" alt="image"/>
+                    <div class="file btn btn-lg btn-primary" style="cursor:pointer;">
+                        Change Photo
+                        <input type="file" name="ImageData" id="ImageData" onchange="previewImage(this);" asp-for=Image style="cursor:pointer" />
+                        <br />
+                    </div>
 
-
-                    <img id="preview" src="~/Register/image/icon-5359553_640.png" alt="image" />
-
-                    @using(Html.BeginForm("UploadImage","User",FormMethod.Post,new {enctype="multipart/form-data"}))
-                    {   
-                        @Html.AntiForgeryToken()
-                        <div class="file btn btn-lg btn-primary" style="cursor:pointer;">
-                            Change Photo
-                            <input type="file" name="ImageData" id="ImageData" onchange="previewImage(this);" style="cursor:pointer" />
-                            <br />
-                        </div>
-                    }
-                    
-
-                    
                 </div>
             </div>
             <div class="col-md-6">
@@ -51,10 +43,10 @@
                     <h1 style="color:#425cbb">
                         @Model.FirstName @Model.LastName
                     </h1>
-                    <h6>
+                    <h4>
                         @Model.Role
-                    </h6>
-
+                    </h4>
+                    <div style="font-size:10px; margin:10px;color:red">this field can not be changed</div>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -89,15 +81,23 @@
                             </div>
                             <div class="col-md-6">
                                 @* like Discord kendor#6760 *@
-                                <input type="text" value="@Model.UserName"/>
+                                <input type="text" value="@Model.UserName" asp-for="UserName"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Name</label>
+                                <label>First Name</label>
                             </div>
                             <div class="col-md-6">
-                                <input value="@Model.FirstName @Model.LastName" type="text"/>
+                                <input value="@Model.FirstName" type="text" asp-for="FirstName"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input value="@Model.LastName" type="text" asp-for="LastName" />
                             </div>
                         </div>
                         <div class="row">
@@ -105,7 +105,7 @@
                                 <label>Email</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" value="@Model.Email"/>
+                                <input type="email" value="@Model.Email" asp-for="Email"/>
                             </div>
                         </div>
 
@@ -114,7 +114,7 @@
                                 <label>Age</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" value="@Model.Age" />
+                                <input type="number" value="@Model.Age" asp-for="Age"/>
                             </div>
                         </div>
 
@@ -123,7 +123,7 @@
                                 <label>Phone</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="tel" value="@Model.PhoneNumber" />
+                                <input type="tel" value="@Model.PhoneNumber" asp-for="PhoneNumber"/>
                             </div>
                         </div>
 
@@ -133,7 +133,7 @@
                                 <label>City</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" value="@Model.City" />
+                                <input type="text" value="@Model.City" asp-for="City"/>
                             </div>
                         </div>
 
@@ -176,7 +176,7 @@
                        padding:10px;
                        width:109%;
 
-                        " />
+                        " asp-action="EditProfile"/>
                     </div>
                 </div>
             </div>

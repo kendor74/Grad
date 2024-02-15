@@ -1,4 +1,6 @@
-﻿namespace TestUI.Controllers
+﻿using System.Reflection;
+
+namespace TestUI.Controllers
 {
     public class UserController : Controller
     {
@@ -28,32 +30,6 @@
             var result = await _request.Post("api/User/Register", user);
 
             return (result != null ? RedirectToAction("/Home/Users") : RedirectToAction("Home", "SignUp"));
-        }
-
-
-        [HttpPost]
-        public ActionResult UploadFile(User model)
-        {
-            if (model.Image != null && model.Image.Length > 0)
-            {
-                // Process the uploaded file here
-                var fileName = Path.GetFileName(model.Image.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    model.Image.CopyTo(stream);
-                }
-
-                // Additional processing logic
-
-                ViewBag.Path = "uploads/" + fileName;
-                return RedirectToAction("UserProfile", "User"); // Redirect to a different action after processing
-            }
-
-            // Handle the case where no file was selected
-            ModelState.AddModelError("File", "Please select a file");
-            return View("UserProfile");
         }
 
 
@@ -131,6 +107,34 @@
             ViewBag.Path = "";
             //user.ImagePath = "icon-5359554_640.png";
             return View(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult>EditProfile(User user) 
+        {
+            if (user.Image != null && user.Image.Length > 0)
+            {
+                // Process the uploaded file here
+                var fileName = Path.GetFileName(user.Image.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    user.Image.CopyTo(stream);
+                }
+
+                // Additional processing logic
+                user.ImagePath = path;
+                var result = await _request.Put("api/User/Edit Profile", user);
+                if(ModelState.IsValid && result!=null)
+                {
+                    return RedirectToAction("UserProfile", "User", result); // Redirect to a different action after processing
+                }
+            }
+
+            // Handle the case where no file was selected
+            ModelState.AddModelError("File", "Please select a file");
+            return View("UserProfile");
         }
     }   
 }

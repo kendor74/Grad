@@ -65,10 +65,10 @@
             return Ok(result);
         }
 
-        [HttpPut("Changing Profile")]
-        public async Task<IActionResult> EditUserProfile(string id,UserDto user)
+        [HttpPut("Edit Profile")]
+        public async Task<IActionResult> EditUserProfile(UserDto user)
         {
-            var result = await _context.Edit(id,user);
+            var result = await _context.Edit(user);
             return Ok(result);
         }
     
