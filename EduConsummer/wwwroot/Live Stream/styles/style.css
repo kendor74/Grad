@@ -147,7 +147,7 @@ nav {
 }
 
 .camera-active {
-    background-color: #ff0c04;
+    background-color: #ea342e;
 }
 
 .hosting {
@@ -226,4 +226,7 @@ nav {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     cursor: pointer;
+}
+#camera-btn path {
+    filter: invert(100%) sepia(0%) saturate(7442%) hue-rotate(81deg) brightness(109%) contrast(98%);
 }

@@ -4,7 +4,7 @@
     {
         private readonly IApiRequest<User> _request;
 
-        public UserController(IApiRequest<User> request) 
+        public UserController(IApiRequest<User> request)
         {
             _request = request;
         }
@@ -30,22 +30,34 @@
             return (result != null ? RedirectToAction("/Home/Users") : RedirectToAction("Home", "SignUp"));
         }
 
-        //public IActionResult GetProfilePicture()
-        //{
-        //    //// Get the user's profile picture path from your data storage.
-        //    //var userProfilePicturePath = UserProfileService.GetProfilePicturePath(User.Identity.Name);
 
-        //    //if (System.IO.File.Exists(userProfilePicturePath))
-        //    //{
-        //    //    var imageBytes = System.IO.File.ReadAllBytes(userProfilePicturePath);
-        //    //    return File(imageBytes, "image/jpeg"); // Adjust the content type based on your image type.
-        //    //}
+        [HttpPost]
+        public ActionResult UploadFile(User model)
+        {
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                // Process the uploaded file here
+                var fileName = Path.GetFileName(model.Image.FileName);
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
 
-        //    //// Return a default image or placeholder if the profile picture doesn't exist.
-        //    //var defaultImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/default-profile-picture.jpg");
-        //    //var defaultImageBytes = System.IO.File.ReadAllBytes(defaultImagePath);
-        //    //return File(defaultImageBytes, "image/jpeg");
-        //}
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    model.Image.CopyTo(stream);
+                }
+
+                // Additional processing logic
+
+                ViewBag.Path = "uploads/" + fileName;
+                return RedirectToAction("UserProfile", "User"); // Redirect to a different action after processing
+            }
+
+            // Handle the case where no file was selected
+            ModelState.AddModelError("File", "Please select a file");
+            return View("UserProfile");
+        }
+
+
+
 
         [HttpGet]
         public async Task<IActionResult> Users()
@@ -61,7 +73,7 @@
         public async Task<IActionResult> UserById(string id)
         {
             var users = await _request.GetAll($"api/User/{id}");
-            return View("UserDetails",users);
+            return View("UserDetails", users);
         }
 
         [HttpGet]
@@ -71,7 +83,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(string Email , string Paswoord)
+        public async Task<ActionResult> Login(string Email, string Paswoord)
         {
             var result = await _request.Login(Email, Paswoord);
             return View(result);
@@ -90,12 +102,35 @@
                 LastName = "Test",
                 Role = "Stuendt",
                 City = "Cairo",
+                Gender = "Female",
                 PhoneNumber = "01142647033",
                 Age = 22,
-                
+
             };
+            ViewBag.Path = "";
             //user.ImagePath = "icon-5359554_640.png";
             return View(user);
         }
-    }
+
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            User user = new User
+            {
+                Email = "test@gmail.com",
+                UserName = "Test#20",
+                FirstName = "Test ",
+                LastName = "Test",
+                Role = "Stuendt",
+                City = "Cairo",
+                Gender = "Female",
+                PhoneNumber = "01142647033",
+                Age = 22,
+
+            };
+            ViewBag.Path = "";
+            //user.ImagePath = "icon-5359554_640.png";
+            return View(user);
+        }
+    }   
 }
