@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace EducationlPlatform.Controllers
+﻿namespace EducationlPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

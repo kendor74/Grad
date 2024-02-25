@@ -50,15 +50,15 @@ let joinStream = async () => {
     );
 
     let player = `<div class="video-player host-img" id="user-${uid}"></div>`;
-    document.getElementById("col-1").insertAdjacentHTML("afterbegin", player);
-    //document.getElementById(`user-${uid}`).addEventListener('click',expandVideoFrame)
+    document.getElementById("local_user").insertAdjacentHTML("beforeend", player);
+    //document.getElementById(`user-${uid}`).addEventListener('click', expandVideoFrame)
     localTracks[1].play(`user-${uid}`);
     await client.publish([localTracks[0], localTracks[1]]);
 };
 
 let switchToCamera = async () => {
     let player = `<div class="video-player host-img" id="user-${uid}"></div>`;
-    document.getElementById("col-1").insertAdjacentHTML("afterbegin", player);
+    document.getElementById("local_user").insertAdjacentHTML("beforeend", player);
 
     await localTracks[0].setMuted(false);
     await localTracks[1].setMuted(false);
@@ -82,7 +82,7 @@ let handelUserPublished = async (user, mediaType) => {
         document
             .getElementById("remote-users")
             .insertAdjacentHTML("beforeend", player);
-        //document.getElementById(`user-${user.uid}`).addEventListener('click',expandVideoFrame)
+        //document.getElementById(`user-${user.uid}`).addEventListener('click', expandVideoFrame)
     }
 
     if (mediaType === "video") {
@@ -127,17 +127,14 @@ let toggelMic = async (e) => {
 //putting logo on mutting
 let toggelCamera = async (e) => {
     let button = e.currentTarget;
-    let parent = document.getElementById(`user-${uid}`)
 
     if (localTracks[1].muted) {
         button.classList.remove("camera-active");
-        parent.classList.remove("hosting");
-        await client.unpublish([localTracks[1]]);
+        //await client.unpublish([localTracks[1]]);
 
         await localTracks[1].setMuted(false);
     } else {
         await localTracks[1].setMuted(true);
-        parent.classList.add("hosting");
         button.classList.add("camera-active");
     }
 };
@@ -161,7 +158,7 @@ let toggelScreen = async (e) => {
         let player = `<div class="video-player host-img" id="user-${uid}"></div>`;
 
         displayFrame.insertAdjacentHTML("afterbegin", player);
-        //document.getElementById(`user-container-${uid}`).addEventListener('click', expandVideoFrame)
+        document.getElementById(`user-container-${uid}`).addEventListener('click', expandVideoFrame)
 
         userIdInDisplayFrame = `user-${uid}`;
 
@@ -181,26 +178,26 @@ let toggelScreen = async (e) => {
     }
 };
 
-//fixing the expanding video frame
-// let expandVideoFrame = (e) => {
+////fixing the expanding video frame
+//let expandVideoFrame = (e) => {
 
-//   let child = displayFrame.children[0]
-//   if(child){
-//       document.getElementById('col-1').appendChild(child)
-//   }
+//    let child = displayFrame.children[0]
+//    if (child) {
+//        document.getElementById('col-1').appendChild(child)
+//    }
 
-//   displayFrame.style.display = 'block'
-//   displayFrame.appendChild(e.currentTarget)
-//   userIdInDisplayFrame = e.currentTarget.id
+//    displayFrame.style.display = 'block'
+//    displayFrame.appendChild(e.currentTarget)
+//    userIdInDisplayFrame = e.currentTarget.id
 
-//   for(let i = 0; videoFrames.length > i; i++){
-//     if(videoFrames[i].id != userIdInDisplayFrame){
-//       videoFrames[i].style.height = '100px'
-//       videoFrames[i].style.width = '100px'
-//     }
-//   }
+//    for (let i = 0; videoFrames.length > i; i++) {
+//        if (videoFrames[i].id != userIdInDisplayFrame) {
+//            videoFrames[i].style.height = '100px'
+//            videoFrames[i].style.width = '100px'
+//        }
+//    }
 
-// }
+//}
 
 
 

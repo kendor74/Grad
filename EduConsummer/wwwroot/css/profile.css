@@ -111,3 +111,127 @@
 .profile-tab p {
     font-weight: 600;
 }
+
+
+/*
+input { border-style: none; background: transparent; outline: none; }
+
+
+
+
+// for demo
+
+
+.demo-flex-spacer {
+  flex-grow: 1;
+}
+.contain {
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+// colors
+$input-background: rgba(57, 63, 84, 0.8);
+$input-text-inactive: #7881A1;
+$input-text-active: #BFD2FF;
+
+// gradient animation
+@keyframes gradient { 
+  0%{background-position:0 0}
+  100%{background-position:100% 0}
+}
+
+.webflow-style-input {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 1.4rem 2rem 1.6rem;
+  background: $input-background;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+    height: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+}
+
+.webflow-style-input input {
+  flex-grow: 1;
+  color: $input-text-active;
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  vertical-align: middle;
+  &::-webkit-input-placeholder {
+    color: $input-text-inactive;
+  }
+}*/
+.input-test {
+    border-style: none;
+    background: transparent;
+    outline: none;
+}
+
+
+
+.demo-flex-spacer {
+    flex-grow: 1;
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.webflow-style-input {
+    position: relative;
+    max-width: 220px;
+    border-radius: 2px;
+    padding:5px;
+    background: rgba(57, 63, 84, 0.8);
+}
+
+    .webflow-style-input:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 999;
+        height: 4px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background-position: 0% 0%;
+        background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+        background-size: 500% auto;
+        animation: gradient 3s linear infinite;
+    }
+
+    .webflow-style-input input {
+        color: #BFD2FF;
+    }
+
+        .webflow-style-input input::-webkit-input-placeholder {
+            color: #7881A1;
+        }
+

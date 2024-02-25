@@ -13,5 +13,9 @@ global using EducationlPlatform.Models.Services;
 global using EducationlPlatform.Models.InterfaceHandler;
 global using EducationlPlatform.Models.DTOs;
 global using EducationlPlatform.Models.Interfaces.UserInterfaces;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Authorization;
+
 
 

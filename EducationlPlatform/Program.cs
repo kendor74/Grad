@@ -18,9 +18,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 
 //Authentication
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityUserDbContext>()
-    .AddDefaultTokenProviders();
+
+// to allow some Espcial Characters for UserName
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+#"; // Add any additional allowed characters
+
+}).AddEntityFrameworkStores<IdentityUserDbContext>()
+  .AddDefaultTokenProviders();
 
 
 //Inject Interfaces with Services

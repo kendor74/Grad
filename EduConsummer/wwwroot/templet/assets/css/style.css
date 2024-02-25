@@ -27832,8 +27832,8 @@ div.tagsinput {
     .sidebar .sidebar-brand-wrapper .sidebar-brand img {
         width: 80px;
         max-width: 100%;
-        /* height: 112px; */
-        margin-top: 28px;
+        height: 66px; 
+        /*margin-top: 28px;*/
         vertical-align: middle;
     }
 

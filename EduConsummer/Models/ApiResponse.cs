@@ -40,9 +40,15 @@
 
         }
 
+        public Task<T> GetByEmail(string api, string Email)
+        {
+
+            //thinking on how to send Email to get the Data to be displied in the User Profile
+            throw new NotImplementedException();
+        }
+
         public async Task<T> GetById(string api, int id)
         {
-            List<T> response = new List<T>();
             HttpResponseMessage Res = await client.GetAsync(api);
             if (Res.IsSuccessStatusCode)
             {
@@ -50,7 +56,7 @@
                 return result;
             }
 
-            return response[0];
+            return null;
         }
 
         public async Task<string> Login(string Email , string Password)
@@ -75,7 +81,8 @@
 
         public async Task<T> Post(string api, T entity)
         {
-            HttpResponseMessage Res = await client.PutAsJsonAsync(api, entity);
+            HttpResponseMessage Res = await client.PostAsJsonAsync(api, entity);
+
 
             Res.EnsureSuccessStatusCode();
             entity = await Res.Content.ReadAsAsync<T>();
@@ -84,7 +91,7 @@
 
         public async Task<T> Put(string api, T entity)
         {
-            HttpResponseMessage Res = await client.PostAsJsonAsync(api, entity);
+            HttpResponseMessage Res = await client.PutAsJsonAsync(api, entity);
 
             Res.EnsureSuccessStatusCode();
             entity = await Res.Content.ReadAsAsync<T>();

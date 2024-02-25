@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
-namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.InterfaceHandler
 {
     public class UserServices : IUser
     {
@@ -12,16 +8,21 @@ namespace EducationlPlatform.Models.InterfaceHandler
         private readonly IConfiguration _config;
         private readonly RoleManager<IdentityRole> _roleManager;
         //byte[] defualtImage = File.ReadAllBytes("D:\\images\\1.jpg");
+        private readonly IRepository<Student> _studentRepository;
+        private readonly IRepository<Tutor> _tutorRepository;
 
 
 
         public UserServices(UserManager<User> userManager, IConfiguration config
-            , RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+            , RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager
+            , IRepository<Student> studentRepository, IRepository<Tutor> tutorRepository)
         {
             _userManager = userManager;
             _config = config;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _studentRepository = studentRepository;
+            _tutorRepository = tutorRepository;
         }
 
 
@@ -83,12 +84,14 @@ namespace EducationlPlatform.Models.InterfaceHandler
             }
         }
 
-        public async Task<UserDto> SignUp(UserDto user)
+        public async Task<UserDto> SignUp(IFormFile Image, UserDto user)
         {
             IdentityResult result;
             var identityUser = new User
             {
-                //UserName = user.FirstName + 
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 City = user.City,
@@ -102,42 +105,85 @@ namespace EducationlPlatform.Models.InterfaceHandler
 
             try
             {
+                //save image into wwwroot ?? directory and display the path
+                if (Image !=null && user.ImagePath == "" )
+                {
+                    string imageName = await UploadImage(Image, identityUser.UserName, identityUser.Id);
+                    identityUser.Image = imageName;
+                    user.ImagePath = imageName;
+
+                }
+                else
+                {
+                    if (user.Gender == "Female")
+                    {
+
+                        identityUser.Image = "FemaleIcon.png";
+                    }
+                    else
+                    {
+                        identityUser.Image = "MaleIcon.png";
+                    }
+                }
                 result = await _userManager.CreateAsync((User)identityUser, user.Password);
-                if (await _roleManager.FindByIdAsync(identityUser.Id) != null && result.Succeeded)
+
+                //creating rules
+                if (result.Succeeded)
                 {
                     //is IdentityUser include the id after CreateAsync
-
-                    //save image into wwwroot ?? directory and display the path
-                    string imageName= await UploadImage(user.Image ,identityUser.UserName ,identityUser.Id);
-                    identityUser.Image = imageName;
-                    await _userManager.UpdateAsync(identityUser);
 
                     //saving Role of the identity
                     IdentityRole roles = new IdentityRole();
 
                     roles.Id = identityUser.Id;
                     roles.Name = user.Role;
+
                     await _roleManager.CreateAsync(roles);
+
+
+                    if (user.Role == "Student")
+                    {
+                        //adding in the Student Table
+                        var student = new Student()
+                        {
+                            UserId = identityUser.Id,
+                        };
+
+                        await _studentRepository.Create(student);
+                        
+                    }
+                    else
+                    {
+                        //adding in the Tutor Table
+                        //TODO
+                        //creating in the Design on choosing Tutor to open up a field
+                        // 1- Department    2- Description
+                        
+                        var tutor = new Tutor()
+                        {
+                            UserId= identityUser.Id,
+                        };
+
+                    }
+
+                }
+                else
+                {
+                    foreach (var item in result.Errors)
+                    {
+                        user.Error.Add(item.ToString());
+                    }
                 }
                 var Emailtoken = await _userManager.GenerateEmailConfirmationTokenAsync((User)identityUser);
-                var userDto= new UserDto
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    City = user.City,
-                    Age = user.Age,
-                    Image = user.Image
-                };
-                userDto.EmailToken = Emailtoken;
-                userDto.JwtToken = JwtToken(userDto);
+                user.EmailToken = Emailtoken;
+                user.JwtToken = JwtToken(user);
 
 
-                return userDto;
+                return user;
             }
             catch(Exception ex) {
-                return new UserDto { Error = ex.Message };
-                
+                user.Error.Add(ex.Message);
+                return user;
             }
 
             
@@ -149,29 +195,33 @@ namespace EducationlPlatform.Models.InterfaceHandler
             return list;
         }
 
-        public async Task<UserDto> Edit(UserDto userDto)
+        //TODO
+        public async Task<UserDto> Edit(IFormFile Image, UserDto userDto)
         {
             var user = await _userManager.FindByEmailAsync(userDto.Email);
 
-            user.Email = userDto.Email;
             user.PhoneNumber = userDto.PhoneNumber;
             user.City = userDto.City;
             user.Gender = userDto.Gender;
             user.Age = userDto.Age;
-            //user.Image = userDto.Image;
+            user.Image = await UploadImage(Image,userDto.UserName,user.Id);
 
             var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
             {
-                userDto.Error = result.Errors.ToString();   
+                foreach (var item in result.Errors)
+                {
+                    userDto.Error.Add(item.ToString());
+                }
             }
             return userDto;
         }
 
-        public async Task<string> ChangePassword(string id, string currentPassword , string newPassword)
+        //TODO
+        public async Task<string> ChangePassword(string Email, string currentPassword , string newPassword)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByEmailAsync(Email);
             var checkPassword = await _userManager.CheckPasswordAsync(user, currentPassword);
             if (checkPassword)
             {
@@ -189,20 +239,26 @@ namespace EducationlPlatform.Models.InterfaceHandler
             return "The Password is Invalid !";
         }
        
-
         private async Task<string> UploadImage(IFormFile Image , string UserName , string UserId)
         {
-            var imageName = $"{UserName}_{UserId}_{Guid.NewGuid().ToString()}.jpg";
 
+            var imageName = $"{UserName}_{UserId}_{Guid.NewGuid().ToString()}.jpg";
+            var imagePath = Path.Combine(@"D:\repo\EDU\EduConsummer\wwwroot\Upload\", imageName);
+
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            }
             // Save the image to the folder
-            var imagePath = Path.Combine("wwwroot/images", imageName);
             using (var stream = new FileStream(imagePath, FileMode.Create))
             {
                 await Image.CopyToAsync(stream);
-            }
+            }       
 
-           
-            return imagePath;
+
+            return imageName;
         }
+
+        
     }
 }

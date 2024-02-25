@@ -27,16 +27,16 @@
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                <a class="sidebar-brand brand-logo" href="#Home"><img src="~/templet/assets/images/pheniox-high-resolution-logo-transparent (1).svg" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="#Home"><img id="logo" src="~/templet/assets/images/pheniox-high-resolution-logo-transparent (1).svg" alt="logo" /></a>
                 <a class="sidebar-brand brand-logo-mini" href="#Home"><img src="~/templet/assets/images/pheniox-high-resolution-logo-transparent (1).svg" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item nav-category">
                     <span class="nav-link">Navigation</span>
                 </li>
-                
-                
-                
+
+
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="/Home/Index">
                         <span class="menu-icon">
@@ -56,25 +56,10 @@
                     </a>
                 </li>
 
-                
-                
-                @* <li class="nav-item menu-items">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-laptop"></i>
-                        </span>
-                        <span class="menu-title">Basic UI Elements</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="ui-basic">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-                        </ul>
-                    </div>
-                </li> *@
-                
+
+
+
+
 
 
                 <li class="nav-item menu-items">
@@ -85,7 +70,7 @@
                         <span class="menu-title">Chats</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="/Home/LiveStreamRoom">
                         <span class="menu-icon">
@@ -95,10 +80,10 @@
                     </a>
                 </li>
 
-                
-                
-                
-                
+
+
+
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="#Aappointments">
                         <span class="menu-icon">
@@ -107,10 +92,10 @@
                         <span class="menu-title">Appointments</span>
                     </a>
                 </li>
-                
-                
-                
-                
+
+
+
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="#Status&WalletPage">
                         <span class="menu-icon">
@@ -119,13 +104,13 @@
                         <span class="menu-title">Status&wallet</span>
                     </a>
                 </li>
-                
-                
-                
-                
+
+
+
+
                 <hr style="width: 64%;text-align: left;margin-left: 22px;color: #0f1112;border: solid 0.001em;">
-                
-                
+
+
                 <li class="nav-item menu-items">
                     <a class="nav-link" href="#Status&WalletPage">
                         <span class="menu-icon">
@@ -149,25 +134,7 @@
 
 
 
-                @* <li class="nav-item menu-items">
-                    <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-security"></i>
-                        </span>
-                        <span class="menu-title">User Pages</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="auth">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-                        </ul>
-                    </div>
-                </li> *@
-                
+
             </ul>
         </nav>
 
@@ -187,12 +154,11 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    
 
-                   
-                    
-                    @* message dropdown *@
-                    
+
+
+
+
                     <li class="nav-item dropdown border-left">
                         <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <i class="mdi mdi-email"></i>
@@ -237,7 +203,6 @@
 
 
 
-                    @* notifications *@
                     <li class="nav-item dropdown border-left">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="mdi mdi-bell"></i>
@@ -289,7 +254,6 @@
 
 
 
-                    @* after logging in  *@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
@@ -300,22 +264,20 @@
                         </a>
                     </li>
 
-                    @* ending logging in *@
 
 
 
                 </ul>
 
-                @* side button *@
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="mdi mdi-format-line-spacing"></span>
                 </button>
             </div>
         </nav>
 
-        
         @RenderBody()
-       
+
+
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->

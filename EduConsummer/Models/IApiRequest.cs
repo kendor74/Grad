@@ -4,6 +4,7 @@
     {
         Task<List<T>> GetAll(string api);
         Task<T> GetById(string api, int id);
+        Task<T> GetByEmail(string api, string Email);
         Task<T> Post(string api, T entity);
         Task<T> Put(string api, T entity);
         Task<T> Delete(string api, int id);

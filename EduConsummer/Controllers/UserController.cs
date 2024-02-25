@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace TestUI.Controllers
+﻿namespace TestUI.Controllers
 {
     public class UserController : Controller
     {
@@ -21,15 +19,17 @@ namespace TestUI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(User user)
+        public async Task<IActionResult> CreateUser(User user)
         {
-            user.Gender = Request.Form["gender"];
+            //yF&_SkNf577.R.a
 
-
-            ViewBag.Error("Creation Denied");
+            //TODO
+            //work on generating exact number depending on each role 
+            user.UserName = user.FirstName + "#1";
+            
             var result = await _request.Post("api/User/Register", user);
 
-            return (result != null ? RedirectToAction("/Home/Users") : RedirectToAction("Home", "SignUp"));
+            return (result != null ? RedirectToAction("/User/UserProfile",result) : RedirectToAction("Home", "SignUp"));
         }
 
 
@@ -45,12 +45,12 @@ namespace TestUI.Controllers
 
         //TODO
 
-        [HttpGet]
-        public async Task<IActionResult> UserById(string id)
-        {
-            var users = await _request.GetAll($"api/User/{id}");
-            return View("UserDetails", users);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> UserByEmail(string Email)
+        //{
+        //    var users = await _request.GetByEmail($"api/User/{Email}");
+        //    return View("UserDetails", users);
+        //}
 
         [HttpGet]
         public ActionResult Login()
@@ -68,6 +68,8 @@ namespace TestUI.Controllers
 
         public ActionResult UserProfile()
         {
+            //calling Api User Services
+
 
             //should display Student or Tutor
             User user = new User
@@ -83,8 +85,14 @@ namespace TestUI.Controllers
                 Age = 22,
 
             };
-            ViewBag.Path = "";
-            //user.ImagePath = "icon-5359554_640.png";
+            
+                if (user.Gender == "Female")
+                    user.ImagePath = "FemaleIcon.png";
+                else
+                    user.ImagePath = "MaleIcon.png";
+
+            
+
             return View(user);
         }
 
@@ -104,8 +112,9 @@ namespace TestUI.Controllers
                 Age = 22,
 
             };
+
             ViewBag.Path = "";
-            //user.ImagePath = "icon-5359554_640.png";
+            user.ImagePath = "FemaleIcon.png";
             return View(user);
         }
 
@@ -117,19 +126,15 @@ namespace TestUI.Controllers
                 // Process the uploaded file here
                 var fileName = Path.GetFileName(user.Image.FileName);
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    user.Image.CopyTo(stream);
-                }
-
                 // Additional processing logic
                 user.ImagePath = path;
-                var result = await _request.Put("api/User/Edit Profile", user);
-                if(ModelState.IsValid && result!=null)
-                {
-                    return RedirectToAction("UserProfile", "User", result); // Redirect to a different action after processing
-                }
+               
+            }
+
+            var result = await _request.Put("api/User/Edit Profile", user);
+            if (ModelState.IsValid && result != null)
+            {
+                return RedirectToAction("UserProfile", "User", result); // Redirect to a different action after processing
             }
 
             // Handle the case where no file was selected

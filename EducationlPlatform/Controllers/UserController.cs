@@ -28,13 +28,30 @@
 
         //Need
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(UserDto user)
+        public async Task<IActionResult> Register([FromForm]UserDto user)
         {
-            
-            var result = await _context.SignUp(user);
+            if (user.Image == null)
+            {
+                user.ImagePath = "Default";
+                string path = (user.Gender == "Male")? "D:\\repo\\EDU\\EduConsummer\\wwwroot\\Upload\\MaleIcon.png" : "D:\\repo\\EDU\\EduConsummer\\wwwroot\\Upload\\FemaleIcon.png";
 
-            //return (result.Error.IsNullOrEmpty()) ? Ok(result) : BadRequest(result.Error);
-            return Ok(result);
+                var placeholderBytes = System.IO.File.ReadAllBytes(path);
+                var defaultFile = 
+                    new FormFile(new MemoryStream(placeholderBytes), 0, placeholderBytes.Length, $"{user.Gender}Icon", $"{user.Gender}.png")
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/png"
+                };
+                user.Image = defaultFile;
+            }
+
+            var result = await _context.SignUp(user.Image,user);
+
+            if (ModelState.IsValid)
+                return Ok(result);
+            else
+                return BadRequest($"Creatation denied!\n {result.Error}");
+            
         }
 
 
@@ -58,17 +75,17 @@
 
 
         [HttpPost("Changing Password")]
-        public async Task<IActionResult> ChangePassword(string id,string currentPassword,string newPassword)
+        public async Task<IActionResult> ChangePassword(string Email,string CurrentPassword,string NewPassword)
         {
-            var result = _context.ChangePassword(id, currentPassword, newPassword);
+            var result = _context.ChangePassword(Email, CurrentPassword, NewPassword);
 
             return Ok(result);
         }
 
         [HttpPut("Edit Profile")]
-        public async Task<IActionResult> EditUserProfile(UserDto user)
+        public async Task<IActionResult> EditUserProfile(IFormFile Image,UserDto user)
         {
-            var result = await _context.Edit(user);
+            var result = await _context.Edit(Image,user);
             return Ok(result);
         }
     

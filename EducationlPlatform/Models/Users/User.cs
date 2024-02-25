@@ -4,6 +4,7 @@
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public override string UserName { get; set; }
         public string? Image { get; set; }
         public byte Age { get; set; }
         public string City { get; set; }

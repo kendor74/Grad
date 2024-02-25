@@ -22,6 +22,16 @@
             }
         }
     </script>
+    <style>
+        .row{
+            padding:5px;
+        }
+        label{
+            color: #6c7293;
+        }
+    </style>
+
+
 </head>
 <div class="container emp-profile">
     <form>
@@ -29,7 +39,7 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     @* putting @Model.ImagePath   *@
-                    <img id="preview" src="~/Register/image/icon-5359553_640.png" alt="image"/>
+                    <img id="preview" src="~/Upload/@Model.ImagePath" alt="image"/>
                     <div class="file btn btn-lg btn-primary" style="cursor:pointer;">
                         Change Photo
                         <input type="file" name="ImageData" id="ImageData" onchange="previewImage(this);" asp-for=Image style="cursor:pointer" />
@@ -57,7 +67,7 @@
             </div>
             
         </div>
-        <div class="row">
+        <div class="row" style="padding:5px;">
             @* <div class="col-md-4">
             <div class="profile-work">
             <p>WORK LINK</p>
@@ -73,69 +83,79 @@
             </div>
             </div >*@
             <div class="col-md-8">
-                <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-content profile-tab" id="myTabContent"  >
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
+
+
+                        <div class="container row">
                             <div class="col-md-6">
-                                <label>UserName</label>
+                                <label>User Name :</label>
                             </div>
-                            <div class="col-md-6">
-                                @* like Discord kendor#6760 *@
-                                <input type="text" value="@Model.UserName" asp-for="UserName"/>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.UserName"></input>
                             </div>
+                            <div class="demo-flex-spacer"></div>
                         </div>
-                        <div class="row">
+
+
+                        <div class="container row">
                             <div class="col-md-6">
-                                <label>First Name</label>
+                                <label>First Name :</label>
                             </div>
-                            <div class="col-md-6">
-                                <input value="@Model.FirstName" type="text" asp-for="FirstName"/>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.FirstName"></input>
                             </div>
+                            <div class="demo-flex-spacer"></div>
                         </div>
-                        <div class="row">
+
+
+                        <div class="container row">
                             <div class="col-md-6">
-                                <label>Last Name</label>
+                                <label>Last Name:</label>
                             </div>
-                            <div class="col-md-6">
-                                <input value="@Model.LastName" type="text" asp-for="LastName" />
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.LastName"></input>
                             </div>
+                            <div class="demo-flex-spacer"></div>
                         </div>
-                        <div class="row">
+                        
+                        
+
+                        <div class="container row">
                             <div class="col-md-6">
                                 <label>Email</label>
                             </div>
-                            <div class="col-md-6">
-                                <input type="email" value="@Model.Email" asp-for="Email"/>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.Email"></input>
                             </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+                        
+                        
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>Age : </label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.Age"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
                         </div>
 
-                        <div class="row">
+                        <div class="container row">
                             <div class="col-md-6">
-                                <label>Age</label>
+                                <label>Phone :</label>
                             </div>
-                            <div class="col-md-6">
-                                <input type="number" value="@Model.Age" asp-for="Age"/>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.PhoneNumber"></input>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="tel" value="@Model.PhoneNumber" asp-for="PhoneNumber"/>
-                            </div>
+                            <div class="demo-flex-spacer"></div>
                         </div>
 
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>City</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" value="@Model.City" asp-for="City"/>
-                            </div>
-                        </div>
+
+
+
 
 
                         @{

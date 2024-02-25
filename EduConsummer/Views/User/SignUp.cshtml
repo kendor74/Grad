@@ -14,22 +14,14 @@
     <title>Sign Up</title>
 
     <!-- Font Icon -->
+    <link rel="shortcut icon" href="~/templet/assets/images/pheniox-favicon-color.png" />
+
     <link rel="stylesheet"
           href="~/Register/fonts/material-icon/css/material-design-iconic-font.min.css" />
 
     <!-- Main css -->
     <link rel="stylesheet" href="~/Register/css/style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <script>
-        //edit
-        $('#password, #confirm_password').on('keyup', function () {
-            if ($('#password').val() == $('#confirm_password').val()) {
-                $('#message').html('Matching').css('color', 'green');
-            } else
-                $('#message').html('Not Matching').css('color', 'red');
-        });
-    </script>
 
 </head>
 <body>
@@ -43,17 +35,21 @@
                     <form class="register-form" id="register-form"
                     style="padding: 0 35px 0 70px;
                            background-color: #1a3970;
-                           margin-top: -17px;">
+                           margin-top: -17px;"
+                          asp-action="CreateUser"
+                          asp-controller="User" method="Post">
+
+
                         <h2>student registration form</h2>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">First Name :</label>
-                                <input type="text" name="name" id="name" required asp-for="FirstName"/>
+                                <input type="text" name="firstname" id="name" required asp-for="FirstName"/>
                             </div>
                             <div class="form-group">
                                 <label for="father_name">Last Name :</label>
                                 <input type="text"
-                                       name="father_name"
+                                       name="lastname"
                                        id="father_name"
                                        required 
                                        asp-for="LastName"/>
@@ -71,17 +67,27 @@
                                 <input type="number" name="Age" id="age" required asp-for="Age"/>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone Number :</label>
-                                <input type="tel"
+                                <label>Phone Number :</label>
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { id = "phoneNumber" })
+
+
+
+                                @* <input type="text"
                                        name="phone"
-                                       pattern="^01[0-2,5]{1}[0-9]{8}$"
                                        placeholder="(+20) 01X XXX XXX XX"
                                        id="phone"
                                        required 
-                                       asp-for="PhoneNumber"/>
+                                       asp-for="PhoneNumber"/> *@
                             </div>
                         </div>
+
+
+
                         <!-- <div class="form-group">
+
+
+                                                               pattern="^01[0-2,5]{1}[0-9]{8}$"
+
                           <label for="ccn">Credit Card Number:</label>
                           <input
                             id="ccn"
@@ -115,13 +121,14 @@
                         <div class="form-radio">
                             <label for="gender" class="radio-label">Gender :</label>
                             <div class="form-radio-item">
-                                <input type="radio" name="gender" id="male" checked />
+@*                                 <input type="radio" name="gender" id="male" checked />
+ *@                                @Html.RadioButtonFor(model => model.Gender, "male", new { id = "male" })
+
                                 <label for="male">Male</label>
                                 <span class="check"></span>
                             </div>
                             <div class="form-radio-item">
-                                <input type="radio" name="gender" id="female" />
-                                <label for="female">Female</label>
+                                @Html.RadioButtonFor(model => model.Gender, "female", new { id = "female" })                                <label for="female">Female</label>
                                 <span class="check"></span>
                             </div>
                         </div>
@@ -131,8 +138,8 @@
                                 <label for="state">Role :</label>
                                 <div class="form-select">
                                     <select name="role" id="state" asp-for="Role">
-                                        <option value="st">Student</option>
-                                        <option value="tu">Tutor</option>
+                                        <option value="student">Student</option>
+                                        <option value="tutor">Tutor</option>
                                     </select>
                                     <span class="select-icon">
                                         <i class="zmdi zmdi-chevron-down"></i>
@@ -182,18 +189,11 @@
                         </div>
                         <div class="form-submit">
                             <input type="submit"
-                                   value="Reset All"
-                                   class="submit"
-                                   name="reset"
-                                   id="reset"
-                                   asp-action="SignUp"/>
-
-
-                            <input type="submit"
                                    value="Submit"
                                    class="submit"
                                    name="submit"
-                                   id="submit" />
+                                   id="submit" 
+                                    />
                         </div>
                     </form>
                 </div>
@@ -202,10 +202,19 @@
     </div>
 
     <!-- JS -->
-    
-    
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        //edit
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
+    </script>
     <script src="~/Register/vendor/jquery/jquery.min.js"></script>
     <script src="~/Register/js/main.js"></script>
 </body>
