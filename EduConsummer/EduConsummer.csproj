@@ -14,6 +14,24 @@
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="wwwroot\assets\fonts\flexslider-icon.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets\fonts\slick.svg" />
+    <None Include="wwwroot\assets\js\custom.js" />
+    <None Include="wwwroot\assets\js\isotope.min.js" />
+    <None Include="wwwroot\assets\js\lightbox.js" />
+    <None Include="wwwroot\assets\js\owl-carousel.js" />
+    <None Include="wwwroot\assets\js\slick-slider.js" />
+    <None Include="wwwroot\assets\js\tabs.js" />
+    <None Include="wwwroot\assets\js\video.js" />
+    <None Include="wwwroot\assets\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.min.map" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.slim.js" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\assets\vendor\jquery\jquery.slim.min.map" />
     <None Include="wwwroot\Upload\ken66_8949d298-54d4-497f-92ee-437d97c6383f_adbcad9f-f618-40d1-b042-fe987470cba5.jpg" />
   </ItemGroup>
 
