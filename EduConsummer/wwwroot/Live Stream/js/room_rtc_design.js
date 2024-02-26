@@ -143,9 +143,11 @@ let toggelScreen = async (e) => {
     let screenButton = e.currentTarget;
     let cameraButton = document.getElementById("camera-btn");
     let displayFrame = document.getElementById("col-1");
+    let localUser = document.getElementById("local_user");
     if (!sharingScreen) {
         sharingScreen = true;
 
+        localUser.style.display = "none";
         screenButton.classList.add("screen-active");
         cameraButton.classList.remove("camera-active");
         cameraButton.style.display = "none";
@@ -158,7 +160,7 @@ let toggelScreen = async (e) => {
         let player = `<div class="video-player host-img" id="user-${uid}"></div>`;
 
         displayFrame.insertAdjacentHTML("afterbegin", player);
-        document.getElementById(`user-container-${uid}`).addEventListener('click', expandVideoFrame)
+        //document.getElementById(`user-container-${uid}`).addEventListener('click', expandVideoFrame)
 
         userIdInDisplayFrame = `user-${uid}`;
 
@@ -168,6 +170,7 @@ let toggelScreen = async (e) => {
         await client.publish([localScreenTracks]);
     } else {
         sharingScreen = false;
+        localUser.style.display = "block"
         cameraButton.style.display = "block";
         screenButton.classList.remove("screen-active");
 
