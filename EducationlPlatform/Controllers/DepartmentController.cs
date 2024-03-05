@@ -11,7 +11,7 @@
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("GetDepartments")]
         public async Task<IActionResult> GetAllDepartments()
         {
             var list = await _repository.GetAll();
@@ -27,7 +27,7 @@
             return Ok(list);
         }
 
-        [HttpPost]
+        [HttpPost("CreateDepartment")]
         public async Task<IActionResult> AddDepartment(Department Department)
         {
             await _repository.Create(Department);

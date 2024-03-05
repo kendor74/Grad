@@ -30,7 +30,7 @@
                     var EmpResponcse = Res.Content.ReadAsStringAsync().Result;
                     list = JsonConvert.DeserializeObject<List<T>>(EmpResponcse);
                 }
-                return list;
+                    return list;
 
             }
             catch(Exception ex) { }
@@ -79,14 +79,15 @@
             return Res.Content.ReadAsStringAsync().ToString();
         }
 
-        public async Task<T> Post(string api, T entity)
+        public async Task<bool> Post(string api, T entity)
         {
             HttpResponseMessage Res = await client.PostAsJsonAsync(api, entity);
 
 
             Res.EnsureSuccessStatusCode();
-            entity = await Res.Content.ReadAsAsync<T>();
-            return entity;
+            
+            //T result = await Res.Content.ReadAsAsync<T>();
+            return true;
         }
 
         public async Task<T> Put(string api, T entity)

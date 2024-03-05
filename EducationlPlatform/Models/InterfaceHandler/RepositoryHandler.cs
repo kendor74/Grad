@@ -2,29 +2,31 @@
 {
     public class RepositoryHandler<T> : IRepository<T> where T : class
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IdentityDbContext _context;
+        private readonly DbSet<T> _db;
 
-        public RepositoryHandler(ApplicationDbContext context)
+        public RepositoryHandler(IdentityDbContext context)
         {
             _context = context;
+            _db = context.Set<T>();
         }
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            var entities = await _context.Set<T>().ToListAsync();
+            var entities = await _db.ToListAsync();
 
             return entities;
         }
 
         public async Task<T> FindById(int id)
         {
-            var entity = await _context.Set<T>().FindAsync(id);
+            var entity = await _db.FindAsync(id);
             return entity;
         }
 
         public async Task<T> Create(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            await _db.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
@@ -35,7 +37,7 @@
 
             if (entity != null)
             {
-                _context.Set<T>().Remove(entity);
+                _db.Remove(entity);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -64,13 +66,13 @@
 
         public async Task<int> Count()
         {
-            return await _context.Set<T>().CountAsync();
+            return await _db.CountAsync();
         }
 
 
         public IEnumerable<T> Search(Func<T, bool> filter)
         { 
-            return _context.Set<T>().Where(filter);
+            return _db.Where(filter);
         }
     }
 }

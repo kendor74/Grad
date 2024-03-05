@@ -16,6 +16,8 @@ global using EducationlPlatform.Models.Interfaces.UserInterfaces;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using Microsoft.AspNetCore.Authorization;
+global using System.ComponentModel.DataAnnotations;
+global using System.ComponentModel.DataAnnotations.Schema;
 
 
 

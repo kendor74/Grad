@@ -1,5 +1,5 @@
 ﻿global using EduConsummer.Models;
-global using EduConsummer.Models.DTOs;
+global using EduConsummer.Models.Services;
 global using EduConsummer.Models.Users;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -10,3 +10,4 @@ global using System.Net.Http.Headers;
 global using System.Security.Policy;
 global using Humanizer;
 global using System.Diagnostics;
+

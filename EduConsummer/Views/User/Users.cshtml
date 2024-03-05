@@ -19,6 +19,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
@@ -41,6 +44,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Age)
+            </th
+            ><th>
+                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th></th>
         </tr>
@@ -48,6 +54,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>

@@ -37,7 +37,7 @@
 
                 var placeholderBytes = System.IO.File.ReadAllBytes(path);
                 var defaultFile = 
-                    new FormFile(new MemoryStream(placeholderBytes), 0, placeholderBytes.Length, $"{user.Gender}Icon", $"{user.Gender}.png")
+                new FormFile(new MemoryStream(placeholderBytes), 0, placeholderBytes.Length, $"{user.Gender}Icon", $"{user.Gender}.png")
                 {
                     Headers = new HeaderDictionary(),
                     ContentType = "image/png"

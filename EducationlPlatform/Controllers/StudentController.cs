@@ -10,7 +10,13 @@
             _studentService = studentService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetStudents()
+        {
+            var students = await _studentService.GetAll();
 
+            return Ok(students);
+        }
 
     }
 }

@@ -8,8 +8,16 @@
         public float Cost { get; set; }
 
 
-        public virtual ICollection<StudentRoom> StudentRooms { get; set; } = new List<StudentRoom>();
-        public virtual ICollection<TutorRoom> TutorRooms{ get; set; } = new List<TutorRoom>();
+
+
+        //public virtual ICollection<StudentRoom> StudentRooms { get; set; } = new List<StudentRoom>();
+        //public virtual ICollection<TutorRoom> TutorRooms{ get; set; } = new List<TutorRoom>();
         
+    }
+
+    enum RoomType : byte
+    {
+        TutorRoom,
+        StudentRoom,
     }
 }

@@ -6,23 +6,23 @@
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
-        private readonly RoleManager<IdentityRole> _roleManager;
         //byte[] defualtImage = File.ReadAllBytes("D:\\images\\1.jpg");
-        private readonly IRepository<Student> _studentRepository;
-        private readonly IRepository<Tutor> _tutorRepository;
 
+        private readonly IdentityUserDbContext _identityUserDbContext;
+        private IRepository<Student> _studentRepository;
+        private IRepository<Tutor> _tutorRepository;
 
 
         public UserServices(UserManager<User> userManager, IConfiguration config
-            , RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager
-            , IRepository<Student> studentRepository, IRepository<Tutor> tutorRepository)
+            , SignInManager<User> signInManager, IdentityUserDbContext identityUserDbContext
+            , IRepository<Student> studentRepository , IRepository<Tutor> turotRepository)
         {
             _userManager = userManager;
             _config = config;
-            _roleManager = roleManager;
             _signInManager = signInManager;
+            _identityUserDbContext = identityUserDbContext;
             _studentRepository = studentRepository;
-            _tutorRepository = tutorRepository;
+            _tutorRepository = turotRepository;
         }
 
 
@@ -109,7 +109,7 @@
                 if (Image !=null && user.ImagePath == "" )
                 {
                     string imageName = await UploadImage(Image, identityUser.UserName, identityUser.Id);
-                    identityUser.Image = imageName;
+                    identityUser.ImagePath = imageName;
                     user.ImagePath = imageName;
 
                 }
@@ -118,39 +118,32 @@
                     if (user.Gender == "Female")
                     {
 
-                        identityUser.Image = "FemaleIcon.png";
+                        identityUser.ImagePath = "FemaleIcon.png";
                     }
                     else
                     {
-                        identityUser.Image = "MaleIcon.png";
+                        identityUser.ImagePath = "MaleIcon.png";
                     }
                 }
-                result = await _userManager.CreateAsync((User)identityUser, user.Password);
+
+
+
+                result = await _userManager.CreateAsync(identityUser, user.Password);
 
                 //creating rules
                 if (result.Succeeded)
                 {
-                    //is IdentityUser include the id after CreateAsync
-
-                    //saving Role of the identity
-                    IdentityRole roles = new IdentityRole();
-
-                    roles.Id = identityUser.Id;
-                    roles.Name = user.Role;
-
-                    await _roleManager.CreateAsync(roles);
-
+                    await _userManager.AddToRoleAsync(identityUser, user.Role);
 
                     if (user.Role == "Student")
                     {
-                        //adding in the Student Table
-                        var student = new Student()
+
+                        Student st = new Student
                         {
-                            UserId = identityUser.Id,
+                            UserId = identityUser.Id
                         };
 
-                        await _studentRepository.Create(student);
-                        
+                        await _studentRepository.Create(st);
                     }
                     else
                     {
@@ -182,8 +175,11 @@
                 return user;
             }
             catch(Exception ex) {
+
+                
                 user.Error.Add(ex.Message);
-                return user;
+                
+                return null;
             }
 
             
@@ -192,6 +188,8 @@
         public async Task<IEnumerable<IdentityUser>> GetUsers()
         {
             var list = await _userManager.Users.ToListAsync();
+
+            
             return list;
         }
 
@@ -204,7 +202,7 @@
             user.City = userDto.City;
             user.Gender = userDto.Gender;
             user.Age = userDto.Age;
-            user.Image = await UploadImage(Image,userDto.UserName,user.Id);
+            user.ImagePath = await UploadImage(Image,userDto.UserName,user.Id);
 
             var result = await _userManager.UpdateAsync(user);
 
