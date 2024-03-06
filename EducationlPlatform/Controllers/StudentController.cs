@@ -4,8 +4,9 @@
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly IRepository<Student> _studentService;
-        public StudentController(IRepository<Student> studentService) 
+        private readonly Services<Student> _studentService;
+        //private readonly IdentityUserDbContext _context;
+        public StudentController(Services<Student> studentService) 
         {
             _studentService = studentService;
         }
@@ -13,7 +14,9 @@
         [HttpGet]
         public async Task<IActionResult> GetStudents()
         {
-            var students = await _studentService.GetAll();
+
+            var students = _studentService.GetAll();
+
 
             return Ok(students);
         }

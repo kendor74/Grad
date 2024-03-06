@@ -1,28 +1,18 @@
-﻿namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.Handler
 {
-    public class UserServices : IUser
+    public class UserServices 
     {
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
-        //byte[] defualtImage = File.ReadAllBytes("D:\\images\\1.jpg");
-
-        private readonly IdentityUserDbContext _identityUserDbContext;
-        private IRepository<Student> _studentRepository;
-        private IRepository<Tutor> _tutorRepository;
-
 
         public UserServices(UserManager<User> userManager, IConfiguration config
-            , SignInManager<User> signInManager, IdentityUserDbContext identityUserDbContext
-            , IRepository<Student> studentRepository , IRepository<Tutor> turotRepository)
+            , SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _config = config;
             _signInManager = signInManager;
-            _identityUserDbContext = identityUserDbContext;
-            _studentRepository = studentRepository;
-            _tutorRepository = turotRepository;
         }
 
 
@@ -100,9 +90,6 @@
                 EmailConfirmed = true
             };
 
-           
-
-
             try
             {
                 //save image into wwwroot ?? directory and display the path
@@ -127,49 +114,23 @@
                 }
 
 
-
                 result = await _userManager.CreateAsync(identityUser, user.Password);
 
                 //creating rules
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(identityUser, user.Role);
-
-                    if (user.Role == "Student")
-                    {
-
-                        Student st = new Student
-                        {
-                            UserId = identityUser.Id
-                        };
-
-                        await _studentRepository.Create(st);
-                    }
-                    else
-                    {
-                        //adding in the Tutor Table
-                        //TODO
-                        //creating in the Design on choosing Tutor to open up a field
-                        // 1- Department    2- Description
-                        
-                        var tutor = new Tutor()
-                        {
-                            UserId= identityUser.Id,
-                        };
-
-                    }
-
                 }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        user.Error.Add(item.ToString());
-                    }
-                }
-                var Emailtoken = await _userManager.GenerateEmailConfirmationTokenAsync((User)identityUser);
-                user.EmailToken = Emailtoken;
-                user.JwtToken = JwtToken(user);
+                //else
+                //{
+                //    foreach (var item in result.Errors)
+                //    {
+                //        user.Error.Add(item.ToString());
+                //    }
+                //}
+                //var Emailtoken = await _userManager.GenerateEmailConfirmationTokenAsync((User)identityUser);
+                //user.EmailToken = Emailtoken;
+                //user.JwtToken = JwtToken(user);
 
 
                 return user;
@@ -177,7 +138,7 @@
             catch(Exception ex) {
 
                 
-                user.Error.Add(ex.Message);
+                
                 
                 return null;
             }

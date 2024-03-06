@@ -1,15 +1,16 @@
-﻿namespace EducationlPlatform.Models.InterfaceHandler
+﻿namespace EducationlPlatform.Models.Handler
 {
-    public class RepositoryHandler<T> : IRepository<T> where T : class
+    public class Services<T> where T : class
     {
-        private readonly IdentityDbContext _context;
+        private readonly IdentityUserDbContext _context;
         private readonly DbSet<T> _db;
 
-        public RepositoryHandler(IdentityDbContext context)
+        public Services(IdentityUserDbContext context)
         {
             _context = context;
             _db = context.Set<T>();
         }
+
 
         public async Task<IEnumerable<T>> GetAll()
         {
@@ -61,7 +62,7 @@
         public async Task<bool> IsExist(int id)
         {
             var entity = await FindById(id);
-            return (entity!=null) ? true : false;
+            return (entity != null) ? true : false;
         }
 
         public async Task<int> Count()
@@ -71,8 +72,10 @@
 
 
         public IEnumerable<T> Search(Func<T, bool> filter)
-        { 
+        {
             return _db.Where(filter);
         }
+
+
     }
 }

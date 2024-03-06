@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -32,17 +31,9 @@ builder.Services.AddIdentity<User,IdentityRole>(options =>
 
 //Inject Interfaces with Services
 
+builder.Services.AddScoped<UserServices>();
+builder.Services.AddScoped<Services<Student>>();
 
-builder.Services.AddScoped<IUser, UserServices>();
-
-builder.Services.AddScoped<IRepository<Student>, RepositoryHandler<Student>>();
-//builder.Services.AddScoped<IRepository<StudentRoom>, RepositoryHandler<StudentRoom>>();
-//builder.Services.AddScoped<IRepository<TutorRoom>, RepositoryHandler<TutorRoom>>();
-//builder.Services.AddScoped<IRepository<Tutor>, RepositoryHandler<Tutor>>();
-//builder.Services.AddScoped<IRepository<Admin>, RepositoryHandler<Admin>>();
-//builder.Services.AddScoped<IRepository<Room>, RepositoryHandler<Room>>();
-//builder.Services.AddScoped<IRepository<Transaction>, RepositoryHandler<Transaction>>();
-//builder.Services.AddScoped<IRepository<Department>, RepositoryHandler<Department>>();
 
 
 
@@ -72,6 +63,7 @@ builder.Services.AddAuthentication(options =>
 #pragma warning restore CS8604 // Possible null reference argument.
 });
 
+//builder.Services.AddAuthentication();
 
 
 var app = builder.Build();
@@ -90,7 +82,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();
-app.UseAuthorization();
 app.MapControllers();
 
 //here we assign the existing roles in our project

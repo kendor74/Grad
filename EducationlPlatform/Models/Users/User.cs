@@ -12,16 +12,7 @@
         //credit card
         public DateTime RegisteredDate { get; set; } = DateTime.Now;
 
-        public virtual Student Student { get; set; }
-        //public Tutor Tutor { get; set; }
-        //public Admin Admin { get; set; }
-        //public UserType UserType { get; set; } = UserType.Student;
+        
     }
 }
 
-//enum UserType : byte
-//{
-//    Tutor,
-//    Student,
-//    Admin
-//}

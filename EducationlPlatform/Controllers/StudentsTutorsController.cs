@@ -4,8 +4,8 @@
     [ApiController]
     public class StudentRoomController : ControllerBase
     {
-        private readonly IRepository<StudentRoom> _context;
-        public StudentRoomController(IRepository<StudentRoom> context)
+        private readonly Services<StudentRoom> _context;
+        public StudentRoomController(Services<StudentRoom> context)
         {
             _context = context;
         }

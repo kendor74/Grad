@@ -4,8 +4,8 @@
     [ApiController]
     public class TutorController : ControllerBase
     {
-        private readonly IRepository<Tutor> _service;
-        public TutorController(IRepository<Tutor> service)
+        private readonly Services<Tutor> _service;
+        public TutorController(Services<Tutor> service)
         {
             _service = service;
         }

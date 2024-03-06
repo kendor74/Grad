@@ -4,9 +4,9 @@
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUser _context;
+        private readonly UserServices _context;
         
-        public UserController(IUser context)
+        public UserController(UserServices context)
         {
             _context = context;
         }

@@ -4,9 +4,9 @@
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly IRepository<Department> _repository;
+        private readonly Services<Department> _repository;
 
-        public DepartmentController(IRepository<Department> repository)
+        public DepartmentController(Services<Department> repository)
         {
             _repository = repository;
         }
