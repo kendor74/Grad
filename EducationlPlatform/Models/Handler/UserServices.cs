@@ -1,4 +1,6 @@
-﻿namespace EducationlPlatform.Models.Handler
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EducationlPlatform.Models.Handler
 {
     public class UserServices 
     {
@@ -6,17 +8,23 @@
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
+        private readonly Services<Student> _StudentContext;
+        private readonly Services<Tutor> _TutorContext;
+        
 
         public UserServices(UserManager<User> userManager, IConfiguration config
-            , SignInManager<User> signInManager)
+            , SignInManager<User> signInManager, Services<Student> studentContext
+            , Services<Tutor> tutorServices )
         {
             _userManager = userManager;
             _config = config;
             _signInManager = signInManager;
+            _StudentContext = studentContext;
+            _TutorContext = tutorServices;
         }
 
 
-        private string JwtToken(UserDto user)
+        private string JwtToken(User user)
         {
             IEnumerable<Claim> claims = new List<Claim>
             {
@@ -40,22 +48,21 @@
             return tokenString;
         }
 
-        public async Task<UserDto> Login(UserDto user)
+        public async Task<string> Login(UserDto user)
         {
             var userIdentity = await _userManager.FindByEmailAsync(user.Email);
 
             if (userIdentity != null)
             {
+                user.JwtToken = JwtToken(userIdentity);
 
-                //add role
-                //user.Role = await _userManager.getR
-                await _userManager.CheckPasswordAsync(userIdentity, user.Password);
-                user.Email = user.Email;
-                user.Password = user.Password;
-                user.UserName = userIdentity.UserName;
-                //user.Role = role.FirstOrDefault();
-                user.JwtToken = JwtToken(user);
-                return user;
+                var result = await _signInManager.PasswordSignInAsync(userIdentity,user.Password,true,false);
+
+                if (result.Succeeded)
+                {
+                    return "Logged in succeeded";
+                }
+                return "Logged in Failed, Please try again!";
             }
 #pragma warning disable CS8603 // Possible null reference return.
             return null;
@@ -121,13 +128,27 @@
                 {
                     await _userManager.AddToRoleAsync(identityUser, user.Role);
                 }
-                //else
-                //{
-                //    foreach (var item in result.Errors)
-                //    {
-                //        user.Error.Add(item.ToString());
-                //    }
-                //}
+
+                if (user.Role == "Student")
+                {
+                    Student st = new Student()
+                    {
+                        UserId = identityUser.Id,
+                    };
+
+                    await _StudentContext.Create(st);
+                }
+                else
+                {
+                    Tutor tu = new Tutor()
+                    {
+                        Description = user.Description,
+                        DepartmentId = (int)user.DepartmentId,
+                        UserId = identityUser.Id,
+                    };
+                    await _TutorContext.Create(tu);
+                }
+
                 //var Emailtoken = await _userManager.GenerateEmailConfirmationTokenAsync((User)identityUser);
                 //user.EmailToken = Emailtoken;
                 //user.JwtToken = JwtToken(user);
@@ -146,12 +167,9 @@
             
         }
 
-        public async Task<IEnumerable<IdentityUser>> GetUsers()
+        public async Task<IEnumerable<User>> GetUsers()
         {
-            var list = await _userManager.Users.ToListAsync();
-
-            
-            return list;
+            return await _userManager.Users.ToListAsync();
         }
 
         //TODO
@@ -159,11 +177,14 @@
         {
             var user = await _userManager.FindByEmailAsync(userDto.Email);
 
+            user.FirstName   = userDto.FirstName;
+            user.LastName    = userDto.LastName;
+            user.UserName    = userDto.UserName;
             user.PhoneNumber = userDto.PhoneNumber;
-            user.City = userDto.City;
-            user.Gender = userDto.Gender;
-            user.Age = userDto.Age;
-            user.ImagePath = await UploadImage(Image,userDto.UserName,user.Id);
+            user.City        = userDto.City;
+            user.Gender      = userDto.Gender;
+            user.Age         = userDto.Age;
+            user.ImagePath = (userDto.ImagePath != "Defualt") ? await UploadImage(Image, userDto.UserName, user.Id) : "Defualt";
 
             var result = await _userManager.UpdateAsync(user);
 
@@ -178,11 +199,10 @@
         }
 
         //TODO
-        public async Task<string> ChangePassword(string Email, string currentPassword , string newPassword)
+        public async Task<string> ChangePassword(User user, string currentPassword , string newPassword)
         {
-            var user = await _userManager.FindByEmailAsync(Email);
-            var checkPassword = await _userManager.CheckPasswordAsync(user, currentPassword);
-            if (checkPassword)
+            
+            if (user != null)
             {
                 var result = await _userManager.ChangePasswordAsync(user,currentPassword,newPassword);
                 if (result.Succeeded)

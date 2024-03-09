@@ -1,4 +1,7 @@
 
+using EducationlPlatform.Models.Handler;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
@@ -33,6 +36,9 @@ builder.Services.AddIdentity<User,IdentityRole>(options =>
 
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<Services<Student>>();
+builder.Services.AddScoped<Services<Tutor>>();
+builder.Services.AddScoped<Services<Department>>();
+builder.Services.AddScoped<Services<StudentTutorRoom>>();
 
 
 
@@ -64,7 +70,12 @@ builder.Services.AddAuthentication(options =>
 });
 
 //builder.Services.AddAuthentication();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       .AddCookie(options =>
+       {
+           options.LoginPath = "/api/User/login";
+           options.LogoutPath = "/api/User/logout";
+       });
 
 var app = builder.Build();
 

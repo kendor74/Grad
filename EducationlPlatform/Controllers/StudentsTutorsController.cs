@@ -2,10 +2,11 @@
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentRoomController : ControllerBase
+    public class StudentTutorRoomController : ControllerBase
     {
-        private readonly Services<StudentRoom> _context;
-        public StudentRoomController(Services<StudentRoom> context)
+        //Need work
+        private readonly Services<StudentTutorRoom> _context;
+        public StudentTutorRoomController(Services<StudentTutorRoom> context)
         {
             _context = context;
         }
@@ -13,47 +14,36 @@
         [HttpGet]
         public async Task <IActionResult> GetAllstudentRoom() 
         {
-            var list = await _context.GetAll();
+            var list = await _context.GetAll(q => q.Include(r => r.Room).Include(t => t.Tutor).Include(s => s.Student));
             return Ok(list);
         }
-        /*
+
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetbyTutorsId(int id)
+        public async Task<IActionResult> GetbyTutorId(int id)
         {
-            var tutor = await _context.studentRoom.FindAsync(id);
+            var tutor = await _context.FindById(id);
             return Ok(tutor);
         }
-        
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetbyStudnetId(int id)
+        public async Task<IActionResult> GetbyStudnet(int id)
         {
-            var student = await _context.studentRoom.FindAsync(id);
+            var student = await _context.FindById(id);
             return Ok(student);
         }
-        */
 
 
+
+        //adding an extra student into Room
         [HttpPost]
-        public async Task<IActionResult> AddStudentToTutor(StudentRoom studentRoom)
-        {
-            var result = await _context.Create(studentRoom);
-
-            if (ModelState.IsValid)
-                return Ok(result);
-            else
-                return BadRequest("There is a problem While Adding!!");
-            
-        }
-
-
-        [HttpPut]
-        public async Task<IActionResult> UpdaEducationlPlatformudentTutor(StudentRoom studentRoom , int id)
+        public async Task<IActionResult> AddStudent(StudentTutorRoom studentRoom)
         {
             
             if (studentRoom != null)
             {
                 
-                var result = await _context.Update(id, studentRoom);
+                var result = await _context.Create(studentRoom);
                 return Ok(result);
             }
 

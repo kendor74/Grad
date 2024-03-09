@@ -1,4 +1,6 @@
-﻿namespace EducationlPlatform.Models.Handler
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EducationlPlatform.Models.Handler
 {
     public class Services<T> where T : class
     {
@@ -12,23 +14,42 @@
         }
 
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll(Func<IQueryable<T>, IQueryable<T>> includeProperties = null)
         {
-            var entities = await _db.ToListAsync();
+            IQueryable<T> query = _db;
 
-            return entities;
+            if (includeProperties != null)
+            {
+                query = includeProperties(query);
+            }
+
+            return query.ToList();
         }
 
-        public async Task<T> FindById(int id)
+        public async Task<T> FindById(int id, Func<IQueryable<T>, IQueryable<T>> includeProperties = null)
         {
-            var entity = await _db.FindAsync(id);
-            return entity;
+            IQueryable<T> query = _db;
+
+            if (includeProperties != null)
+            {
+                query = includeProperties(query);
+            }
+
+            return query.FirstOrDefault(e => EF.Property<int>(e, "Id") == id);
         }
 
-        public async Task<T> Create(T entity)
+        public async Task<T> Create(T entity, params string[] navigationProperties)
         {
             await _db.AddAsync(entity);
+            foreach (var navigationProperty in navigationProperties)
+            {
+                _context.Entry(entity).Reference(navigationProperty).Load();
+            }
+
             await _context.SaveChangesAsync();
+
+            // Reload the entity with included navigation properties
+            _context.Entry(entity).Reload();
             return entity;
         }
 

@@ -10,10 +10,10 @@
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("GetTutors")]
         public async Task<IActionResult> GetAll() 
         {
-            var Tutors = await _service.GetAll();
+            var Tutors = await _service.GetAll(q => q.Include(u => u.User).Include(d => d.Department));
 
             return Ok(Tutors);
         }
@@ -21,16 +21,8 @@
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var Tutor = await _service.FindById(id);
-            return (Tutor != null)? Ok(Tutor) : BadRequest("This Id is not Exist !");
-        }
-
-        [HttpPost]
-        public async Task <IActionResult> AddTutor(Tutor tutorDto)
-        {
-            var result = await _service.Create(tutorDto);
-
-            return (result != null) ? Ok(result) : BadRequest("Invalid Data !");
+            var Tutor = await _service.FindById(id, q => q.Include(u => u.User).Include(d=>d.Department));
+            return (Tutor != null)? Ok(Tutor) : BadRequest("This Entity does not Exist !");
         }
 
         [HttpPut("{id}")]
