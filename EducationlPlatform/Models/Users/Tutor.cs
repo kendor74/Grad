@@ -2,14 +2,14 @@
 {
     public class Tutor
     {
-        public int TutorId { get; set; }
+        public int Id { get; set; }
 
         public string Description { get; set; }
         
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         
-        //public virtual ICollection<TutorRoom>? Rooms { get; set; }
+        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } = new List<StudentTutorRoom>();
         
 
         public string UserId { get; set; }

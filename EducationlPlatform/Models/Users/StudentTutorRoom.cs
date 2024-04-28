@@ -2,6 +2,8 @@
 {
     public class StudentTutorRoom
     {
+        public int Id { get; set; }
+
         public int StudentId { get; set; }
         public virtual Student Student { get; set; }
 

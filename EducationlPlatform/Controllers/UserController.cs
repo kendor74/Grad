@@ -67,8 +67,8 @@
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
-            var user = User.Identity.Name;
-            if (user is null)
+            var user = User.Identity.IsAuthenticated;
+            if (user)
                 return BadRequest("No account to log out");
             
             bool result = await _context.Logout();

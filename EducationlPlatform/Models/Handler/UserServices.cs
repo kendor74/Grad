@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducationlPlatform.Models.Handler
 {
@@ -54,12 +55,12 @@ namespace EducationlPlatform.Models.Handler
 
             if (userIdentity != null)
             {
-                user.JwtToken = JwtToken(userIdentity);
-
-                var result = await _signInManager.PasswordSignInAsync(userIdentity,user.Password,true,false);
+                var con = await _userManager.CheckPasswordAsync(userIdentity,user.Password);
+                var result = await _signInManager.PasswordSignInAsync(userIdentity.UserName,user.Password,true,false);
 
                 if (result.Succeeded)
                 {
+                    var claim = await _userManager.AddClaimAsync(userIdentity, new Claim("UserRole", "Admin"));
                     return "Logged in succeeded";
                 }
                 return "Logged in Failed, Please try again!";
