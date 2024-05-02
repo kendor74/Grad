@@ -600,5 +600,13 @@
             checkSection();
         });
     </script>
+
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.init({
+            chatflowid: "9485c1fb-0e2a-409e-b2bd-8e7f20685b87",
+            apiHost: "http://127.0.0.1:3000",
+        })
+    </script>
 </body>
 </html>

@@ -1,0 +1,253 @@
+﻿@model List<Tutor>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutors Page</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(22, 34, 57, 0.95);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 90px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .tutor-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            .tutor-card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+
+        .tutor-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .tutor-subject {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .tutor-description {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .start-chat {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: rgba(22, 34, 57, 0.95);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .main-header .logo {
+            float: left;
+            line-height: 80px;
+            padding-left: 60px;
+        }
+
+        header {
+            display: block;
+            unicode-bidi: isolate;
+        }
+
+        .main-header {
+            background-color: rgba(22, 34, 57, 0.95);
+            height: 80px;
+            position: fixed;
+            z-index: 12;
+            width: 100%;
+            top: 0;
+        }
+
+        a {
+            color: #3CF;
+            text-decoration: none;
+        }
+
+        ul {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+
+        .fa {
+            display: inline-block;
+            font: normal normal normal 14px / 1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transform: translate(0, 0);
+        }
+
+        .search-bar {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            .search-bar input[type="text"] {
+                border: none;
+                outline: none;
+                font-size: 16px;
+                padding: 5px;
+                width: 200px;
+            }
+
+            .search-bar button {
+                border: none;
+                background-color: #007bff;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header clearfix" role="header">
+        <div class="logo">
+            <!-- inserting logo  -->
+            <a href="#">
+                <img src="C:\Users\lenovo\source\repos\Tutors\logo.png" alt="" style="width: 12%" />
+            </a>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button onclick="searchAndHighlight()">Search</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Our Tutors</h1>
+        @{
+            foreach (var item in Model)
+            {
+                <div class="tutor-card">
+                    <a>
+                        <img src="~/Images/@item.ImageSrc" alt="Tutor 1">
+                    </a>
+                    <div class="tutor-info">
+                        <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
+                            <div class="tutor-name">@item.Name</div>
+                            <div class="tutor-subject">@item.Field</div>
+                            <div class="tutor-description">@item.Descrp</div>
+                        </a>
+                        <button class="start-chat">Start Chat</button>
+                    </div>
+                </div>
+            }
+        }
+
+@* 
+        <div class="tutor-card">
+            <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
+                <img src="@Model." alt="Tutor 1">
+            </a>
+            <div class="tutor-info">
+                <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
+                    <div class="tutor-name">Mohamed Abdulaziz</div>
+                    <div class="tutor-subject">Mathematics</div>
+                    <div class="tutor-description">Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.</div>
+                </a>
+                <button class="start-chat">Start Chat</button>
+            </div>
+        </div>
+        <div class="tutor-card">
+            <a href="TutorPageIndividual.html?tutorName=Mohamed El-hoseny&tutorSubject=Physics&tutorDescription=Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.&img=~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg">
+                <img src="~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg" alt="Tutor 2">
+            </a>
+            <div class="tutor-info">
+                <a href="TutorPageIndividual.html?tutorName=Mohamed El-hoseny&tutorSubject=Physics&tutorDescription=Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.&img=~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg">
+                    <div class="tutor-name">Mohamed El-Hoseny</div>
+                    <div class="tutor-subject">Physics</div>
+                    <div class="tutor-description">Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.</div>
+                </a>
+                <button class="start-chat">Start Chat</button>
+            </div>
+        </div> *@
+        <!-- Add more tutor cards as needed -->
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // You can add JavaScript code here if needed
+    </script>
+
+
+    <script>
+        function searchAndHighlight() {
+            var searchText = document.getElementById('searchInput').value.trim().toLowerCase(); // Convert search text to lowercase
+            if (searchText === '') return;
+
+            var elements = document.getElementsByTagName('*');
+            var found = false;
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].innerText.toLowerCase().includes(searchText)) { // Convert element text to lowercase for comparison
+                    var innerHTML = elements[i].innerHTML;
+                    var regex = new RegExp(searchText, 'gi'); // Create regular expression with 'g' flag for global search and 'i' flag for case-insensitive search
+                    elements[i].innerHTML = innerHTML.replace(regex, function (match) {
+                        return '<span class="highlight">' + match + '</span>'; // Wrap matched text in a span with highlight class
+                    });
+                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('Text not found on the page.');
+            }
+        }
+    </script>
+</body>
+</html>
