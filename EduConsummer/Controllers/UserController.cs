@@ -65,6 +65,11 @@
             return View(result);
         }
 
+        public async Task<ActionResult> Logout()
+        {
+            var result = await _request.Logout();
+            return ((result != "Error")?RedirectToAction("Index", "Home"):RedirectToAction("Error","Home"));
+        }
 
         public ActionResult UserProfile()
         {

@@ -68,32 +68,13 @@
 
     <div class="container">
         <h1>Tutor Details</h1>
-        <img id="img" />
+        <img src="~/images/@Model.ImageSrc" />
         <div class="tutor-details">
-            <h2 id="tutorName"></h2>
-            <p id="tutorSubject"></p>
-            <p id="tutorDescription"></p>
+            <h2>@Model.Name</h2>
+            <p>@Model.Field</p>
+            <p>@Model.Descrp</p>
+            <button class="start-chat">Start Chat</button>
         </div>
-
-        <button class="start-chat">Start Chat</button>
     </div>
-
-    <script>
-        // Parse URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const tutorName = urlParams.get("tutorName");
-        const tutorSubject = urlParams.get("tutorSubject");
-        const tutorDescription = urlParams.get("tutorDescription");
-        const imgSrc = urlParams.get('img');
-        // Set tutor details
-        document.getElementById("img").innerText = document.getElementById(
-            "tutorName"
-        ).innerText = tutorName;
-        document.getElementById("tutorSubject").innerText =
-            "Subject: " + tutorSubject;
-        document.getElementById("tutorDescription").innerText =
-            "Description: " + tutorDescription;
-        document.getElementById("img").src = imgSrc;
-    </script>
 </body>
 </html>

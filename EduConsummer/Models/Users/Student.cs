@@ -6,6 +6,7 @@
     }
     class Tutor
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Descrp { get; set; }
         public string Field { get; set; }

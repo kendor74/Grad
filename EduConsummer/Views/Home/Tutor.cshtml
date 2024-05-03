@@ -170,20 +170,22 @@
         <h1>Our Tutors</h1>
         @{
             foreach (var item in Model)
-            {
-                <div class="tutor-card">
-                    <a>
-                        <img src="~/Images/@item.ImageSrc" alt="Tutor 1">
-                    </a>
-                    <div class="tutor-info">
-                        <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
-                            <div class="tutor-name">@item.Name</div>
-                            <div class="tutor-subject">@item.Field</div>
-                            <div class="tutor-description">@item.Descrp</div>
-                        </a>
-                        <button class="start-chat">Start Chat</button>
-                    </div>
-                </div>
+            {                    
+                <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
+
+                    <div class="tutor-card">
+                            <img src="~/Images/@item.ImageSrc" alt="@item.Id">
+                        <div class="tutor-info">
+                            <a >
+                                <div class="tutor-name">@item.Name</div>
+                                <div class="tutor-subject">@item.Field</div>
+                                <div class="tutor-description">@item.Descrp</div>
+                            </a>
+                            <button class="start-chat">Start Chat</button>
+                        </div>
+                    </div>     
+                </a>
+
             }
         }
 
