@@ -13,7 +13,7 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: rgba(22, 34, 57, 0.95);
+            background-color: #191C24;
         }
 
         .container {
@@ -23,6 +23,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 220px;
         }
 
         h1 {
@@ -30,22 +31,37 @@
             color: #333;
         }
 
+        .logo {
+            float: left;
+            line-height: 80px;
+            padding-left: 60px;
+        }
+
         .tutor-card {
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(2, 11, 255, 0.1);
         }
 
             .tutor-card img {
-                width: 100%;
-                border-radius: 8px;
+                width: 150px;
+                border-radius: 70px;
+                margin-right: 8px;
             }
+
+        .tutor-info {
+            flex: 1;
+        }
 
         .tutor-name {
             font-size: 20px;
             font-weight: bold;
             margin-top: 10px;
+            color: #333;
         }
 
         .tutor-subject {
@@ -58,6 +74,15 @@
             font-size: 14px;
             color: #777;
             margin-top: 10px;
+        }
+
+         .tutor-mail {
+            font-size: 14px;
+            color: #777;
+        }
+        .tutor-phone {
+            font-size: 14px;
+            color: #777;
         }
 
         .start-chat {
@@ -75,6 +100,7 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s;
+            outline: none;
         }
 
         .main-header .logo {
@@ -149,6 +175,50 @@
         .highlight {
             background-color: yellow;
         }
+
+        .filter-heading {
+            margin-bottom: 10px;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+
+        .sidebar-left {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            margin: 90px auto;
+        }
+
+        .filter-heading-left {
+            margin-bottom: 10px;
+        }
+
+        .filter-label-left {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .filter-checkbox {
+            font: bold italic;
+            margin-bottom: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -180,8 +250,14 @@
                                 <div class="tutor-name">@item.Name</div>
                                 <div class="tutor-subject">@item.Field</div>
                                 <div class="tutor-description">@item.Descrp</div>
+                                <div class="tutor-mail">mohamed.abdulaziz@gmail.com</div>
+                                <div class="tutor-phone">01002631470</div>
+
                             </a>
                             <button class="start-chat">Start Chat</button>
+                            <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry."> <button class="start-chat">Show profile</button></a>
+                            <h2 style="text-align: end; color: #007bff;">$19/hour</h2>
+
                         </div>
                     </div>     
                 </a>
@@ -190,6 +266,7 @@
         }
 
 @* 
+
         <div class="tutor-card">
             <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
                 <img src="@Model." alt="Tutor 1">
@@ -218,6 +295,53 @@
         </div> *@
         <!-- Add more tutor cards as needed -->
     </div>
+
+    <div class="sidebar-left">
+
+        <!-- Add checkboxes for other days as needed -->
+        <div class="filter-heading">Filters</div>
+        <div class="filter-section">
+            <label class="filter-label" for="subjectFilter">Subject:</label>
+            <select class="filter-select" id="subjectFilter" onchange="filterTutors()">
+                <option value="">All Subjects</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <!-- Add more subject options as needed -->
+            </select>
+        </div>
+        <div class="filter-section">
+            <label class="filter-label" for="rateFilter">Hourly Rate:</label>
+            <select class="filter-select" id="rateFilter" onchange="filterTutors()">
+                <option value="">All Rates</option>
+                <option value="19">$19/hour</option>
+                <option value="25">$25/hour</option>
+                <!-- Add more rate options as needed -->
+            </select>
+        </div>
+        <!-- Add more filter sections as needed -->
+        <div class="filter-heading-left">Days Available</div>
+        <div class="filter-checkbox">
+            <input type="checkbox" id="mondayCheckbox" class="day-checkbox" onchange="filterTutors()">
+            <label for="mondayCheckbox">Monday</label>
+        </div>
+        <div class="filter-checkbox">
+            <input type="checkbox" id="tuesdayCheckbox" class="day-checkbox" onchange="filterTutors()">
+            <label for="tuesdayCheckbox">Tuesday</label>
+        </div>
+        <div class="filter-checkbox">
+            <input type="checkbox" id="wednesdayCheckbox" class="day-checkbox" onchange="filterTutors()">
+            <label for="wednesdayCheckbox">Wednesday</label>
+        </div>
+        <div class="filter-checkbox">
+            <input type="checkbox" id="thursdayCheckbox" class="day-checkbox" onchange="filterTutors()">
+            <label for="thursdayCheckbox">Thursday</label>
+        </div>
+        <div class="filter-checkbox">
+            <input type="checkbox" id="fridayCheckbox" class="day-checkbox" onchange="filterTutors()">
+            <label for="fridayCheckbox">Friday</label>
+        </div>
+    </div>
+
 
     <!-- JavaScript -->
     <script>
@@ -251,5 +375,118 @@
             }
         }
     </script>
+
+    <!-- JavaScript -->
+    <script>
+        function filterTutors() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var subjectFilter = document.getElementById('subjectFilter').value.toLowerCase();
+            var rateFilter = document.getElementById('rateFilter').value;
+            var selectedDays = [];
+
+            // Get the selected days
+            var checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    selectedDays.push(checkbox.id.replace('Checkbox', ''));
+                }
+            });
+
+            var tutorCards = document.querySelectorAll('.tutor-card');
+
+            tutorCards.forEach(function (card) {
+                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
+                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
+                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
+                var tutorRate = parseInt(card.querySelector('h2').textContent.replace(/\D+/g, ''));
+
+                var matchesInput = tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input);
+                var matchesSubject = subjectFilter === '' || tutorSubject === subjectFilter;
+                var matchesRate = rateFilter === '' || tutorRate === parseInt(rateFilter);
+                var matchesDays = selectedDays.length === 0 || selectedDays.some(day => tutorDescription.includes(day));
+
+                if (matchesInput && matchesSubject && matchesRate && matchesDays) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function filterTutors() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var subjectFilter = document.getElementById('subjectFilter').value.toLowerCase();
+            var rateFilter = document.getElementById('rateFilter').value;
+
+            var tutorCards = document.querySelectorAll('.tutor-card');
+
+            tutorCards.forEach(function (card) {
+                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
+                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
+                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
+                var tutorRate = parseInt(card.querySelector('h2').textContent.replace(/\D+/g, ''));
+
+                var matchesInput = tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input);
+                var matchesSubject = subjectFilter === '' || tutorSubject === subjectFilter;
+                var matchesRate = rateFilter === '' || tutorRate === parseInt(rateFilter);
+
+                if (matchesInput && matchesSubject && matchesRate) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+
+    <!-- JavaScript -->
+    <script>
+        function searchAndHighlight() {
+            var searchText = document.getElementById('searchInput').value.trim().toLowerCase(); // Convert search text to lowercase
+            if (searchText === '') return;
+
+            var elements = document.getElementsByTagName('*');
+            var found = false;
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i].innerText.toLowerCase().includes(searchText)) { // Convert element text to lowercase for comparison
+                    var innerHTML = elements[i].innerHTML;
+                    var regex = new RegExp(searchText, 'gi'); // Create regular expression with 'g' flag for global search and 'i' flag for case-insensitive search
+                    elements[i].innerHTML = innerHTML.replace(regex, function (match) {
+                        return '<span class="highlight">' + match + '</span>'; // Wrap matched text in a span with highlight class
+                    });
+                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('Text not found on the page.');
+            }
+        }
+    </script>
+    <script>
+        function filterTutors() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var tutorCards = document.querySelectorAll('.tutor-card');
+
+            tutorCards.forEach(function (card) {
+                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
+                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
+                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
+
+                if (tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
