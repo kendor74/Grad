@@ -11,9 +11,11 @@
             _list = new List<Tutor>
             {
                     new Tutor { Id = 1 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" },
+                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" 
+                        ,Phone = "01002631470"},
                     new Tutor { Id = 2 ,  Name = "Mohamed El-Hoseny",  Descrp  = "Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.",
-                        Field = "Physics", ImageSrc = "201710_students_Johannsen_Shane_Tutoring_02.jpg" },
+                        Field = "Physics", ImageSrc = "201710_students_Johannsen_Shane_Tutoring_02.jpg", 
+                        Email = "mohamed.abdulaziz@gmail.com" , Phone = "01002631470"},
                     // Add more items as needed
             };
         }

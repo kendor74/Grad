@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Tutor
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -7,6 +8,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutor Details</title>
+    <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
+
     <style>
         .container {
             max-width: 800px;
@@ -58,10 +61,9 @@
     <header class="main-header clearfix" role="header">
         <div class="logo">
             <!-- inserting logo  -->
-            <a href="#">
-                <img src="logo.png"
-                     alt=""
-                     style="width: 12%" />
+            <a href="~/Home/Index">
+                <img src="/assets/images/logo.png" alt="" style="width: 12%" bis_size="{&quot;x&quot;:60,&quot;y&quot;:18,&quot;w&quot;:154,&quot;h&quot;:49,&quot;abs_x&quot;:60,&quot;abs_y&quot;:18}" bis_id="bn_aw8ktn9phwagh1lue3njua">
+
             </a>
         </div>
     </header>
@@ -73,6 +75,7 @@
             <h2>@Model.Name</h2>
             <p>@Model.Field</p>
             <p>@Model.Descrp</p>
+            <p>@Model.Phone</p>
             <button class="start-chat">Start Chat</button>
         </div>
     </div>

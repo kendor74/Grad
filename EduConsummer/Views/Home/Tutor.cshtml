@@ -17,13 +17,15 @@
         }
 
         .container {
-            max-width: 800px;
-            margin: 90px auto;
+            max-width: 84%;
+            /* margin: 90px auto; */
+            margin-left: 321px;
+            margin-top: 125px;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-right: 220px;
+            margin-right: 70px;
         }
 
         h1 {
@@ -116,7 +118,7 @@
 
         .main-header {
             background-color: rgba(22, 34, 57, 0.95);
-            height: 80px;
+            height: 97px;
             position: fixed;
             z-index: 12;
             width: 100%;
@@ -151,7 +153,8 @@
             transform: translateX(-50%);
             background-color: #f0f0f0;
             border-radius: 5px;
-            padding: 5px 10px;
+            padding: 12px 14px;
+            width: 60%;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
@@ -159,8 +162,10 @@
                 border: none;
                 outline: none;
                 font-size: 16px;
-                padding: 5px;
-                width: 200px;
+                padding: 10px;
+                width: 79%;
+                margin: auto 6px;
+                border-radius: 20px;
             }
 
             .search-bar button {
@@ -168,8 +173,12 @@
                 background-color: #007bff;
                 color: #fff;
                 padding: 5px 10px;
-                border-radius: 3px;
+                /* border-radius: 5px; */
                 cursor: pointer;
+                border-radius: 17px;
+                height: 43px;
+                width: 90px;
+                margin-left: 21px;
             }
 
         .highlight {
@@ -196,13 +205,16 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 200px;
-            height: 100%;
+            /* width: 206px; */
+            /* height: 102%; */
+            margin-left: 26px;
+            margin-top: 127px;
             background-color: #fff;
             padding: 40px;
             box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
             overflow-y: auto;
-            margin: 90px auto;
+            /* margin: 90px auto; */
+            border-radius: 8px;
         }
 
         .filter-heading-left {
@@ -220,13 +232,16 @@
         }
 
     </style>
+    <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
+
 </head>
 <body>
     <header class="main-header clearfix" role="header">
         <div class="logo">
             <!-- inserting logo  -->
-            <a href="#">
-                <img src="C:\Users\lenovo\source\repos\Tutors\logo.png" alt="" style="width: 12%" />
+            <a href="~/Home/Index">
+                <img src="/assets/images/logo.png" alt="" style="margin-top: 20px;width: 10%;" bis_size="{&quot;x&quot;:60,&quot;y&quot;:18,&quot;w&quot;:154,&quot;h&quot;:49,&quot;abs_x&quot;:60,&quot;abs_y&quot;:18}" bis_id="bn_aw8ktn9phwagh1lue3njua">
+
             </a>
         </div>
 
@@ -246,16 +261,13 @@
                     <div class="tutor-card">
                             <img src="~/Images/@item.ImageSrc" alt="@item.Id">
                         <div class="tutor-info">
-                            <a >
                                 <div class="tutor-name">@item.Name</div>
                                 <div class="tutor-subject">@item.Field</div>
                                 <div class="tutor-description">@item.Descrp</div>
-                                <div class="tutor-mail">mohamed.abdulaziz@gmail.com</div>
-                                <div class="tutor-phone">01002631470</div>
+                                <div class="tutor-mail">@item.Email</div>
+                                <div class="tutor-phone">@item.Phone</div>
 
-                            </a>
                             <button class="start-chat">Start Chat</button>
-                            <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry."> <button class="start-chat">Show profile</button></a>
                             <h2 style="text-align: end; color: #007bff;">$19/hour</h2>
 
                         </div>
@@ -265,7 +277,7 @@
             }
         }
 
-@* 
+@*
 
         <div class="tutor-card">
             <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
