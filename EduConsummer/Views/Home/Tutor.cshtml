@@ -1,6 +1,13 @@
 ﻿@model List<Tutor>
 @{
     Layout = null;
+    List<int> rates = new List<int>();
+    foreach(var item in Model)
+    {
+        if (!rates.Contains(item.Rate))
+            rates.Add(item.Rate);
+    }
+    rates.Sort();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +57,8 @@
         }
 
             .tutor-card img {
-                width: 150px;
-                border-radius: 70px;
+                width: 270px;
+                border-radius: 10px;
                 margin-right: 8px;
             }
 
@@ -244,11 +251,14 @@
 
             </a>
         </div>
+        <form asp-action="SearchField" method="post">
 
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button onclick="searchAndHighlight()">Search</button>
-        </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" name="searchBar" placeholder="Search...">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+        
     </header>
 
     <div class="container">
@@ -256,202 +266,132 @@
         @{
             foreach (var item in Model)
             {                    
-                <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
+                    <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
 
-                    <div class="tutor-card">
-                            <img src="~/Images/@item.ImageSrc" alt="@item.Id">
-                        <div class="tutor-info">
-                                <div class="tutor-name">@item.Name</div>
-                                <div class="tutor-subject">@item.Field</div>
-                                <div class="tutor-description">@item.Descrp</div>
-                                <div class="tutor-mail">@item.Email</div>
-                                <div class="tutor-phone">@item.Phone</div>
+                        <div class="tutor-card">
+                                <img src="~/Images/@item.ImageSrc" alt="@item.Id">
+                            <div class="tutor-info">
+                                    <div class="tutor-name">@item.Name</div>
+                                    <div class="tutor-subject">@item.Field</div>
+                                    <div class="tutor-description">@item.Descrp</div>
+                                    <div class="tutor-mail">@item.Email</div>
+                                    <div class="tutor-phone">@item.Phone</div>
+                                @* add the model to the chat btn *@
 
-                            <button class="start-chat">Start Chat</button>
-                            <h2 style="text-align: end; color: #007bff;">$19/hour</h2>
+                                <h2 style="text-align: end; color: #007bff;">$@item.Rate/hour</h2>
 
-                        </div>
-                    </div>     
-                </a>
+                            </div>
+                        </div>     
+                    </a>
 
             }
         }
 
-@*
 
-        <div class="tutor-card">
-            <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
-                <img src="@Model." alt="Tutor 1">
-            </a>
-            <div class="tutor-info">
-                <a href="TutorPageIndividual.html?tutorName=Mohamed Abdulaziz&tutorSubject=Mathematics&tutorDescription=Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.&img=~/images/Male-tutor-1440x960.jpeg">
-                    <div class="tutor-name">Mohamed Abdulaziz</div>
-                    <div class="tutor-subject">Mathematics</div>
-                    <div class="tutor-description">Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.</div>
-                </a>
-                <button class="start-chat">Start Chat</button>
-            </div>
-        </div>
-        <div class="tutor-card">
-            <a href="TutorPageIndividual.html?tutorName=Mohamed El-hoseny&tutorSubject=Physics&tutorDescription=Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.&img=~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg">
-                <img src="~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg" alt="Tutor 2">
-            </a>
-            <div class="tutor-info">
-                <a href="TutorPageIndividual.html?tutorName=Mohamed El-hoseny&tutorSubject=Physics&tutorDescription=Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.&img=~/images/201710_students_Johannsen_Shane_Tutoring_02.jpg">
-                    <div class="tutor-name">Mohamed El-Hoseny</div>
-                    <div class="tutor-subject">Physics</div>
-                    <div class="tutor-description">Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.</div>
-                </a>
-                <button class="start-chat">Start Chat</button>
-            </div>
-        </div> *@
-        <!-- Add more tutor cards as needed -->
-    </div>
-
-    <div class="sidebar-left">
-
-        <!-- Add checkboxes for other days as needed -->
-        <div class="filter-heading">Filters</div>
-        <div class="filter-section">
-            <label class="filter-label" for="subjectFilter">Subject:</label>
-            <select class="filter-select" id="subjectFilter" onchange="filterTutors()">
-                <option value="">All Subjects</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
-                <!-- Add more subject options as needed -->
-            </select>
-        </div>
-        <div class="filter-section">
-            <label class="filter-label" for="rateFilter">Hourly Rate:</label>
-            <select class="filter-select" id="rateFilter" onchange="filterTutors()">
-                <option value="">All Rates</option>
-                <option value="19">$19/hour</option>
-                <option value="25">$25/hour</option>
-                <!-- Add more rate options as needed -->
-            </select>
-        </div>
-        <!-- Add more filter sections as needed -->
-        <div class="filter-heading-left">Days Available</div>
-        <div class="filter-checkbox">
-            <input type="checkbox" id="mondayCheckbox" class="day-checkbox" onchange="filterTutors()">
-            <label for="mondayCheckbox">Monday</label>
-        </div>
-        <div class="filter-checkbox">
-            <input type="checkbox" id="tuesdayCheckbox" class="day-checkbox" onchange="filterTutors()">
-            <label for="tuesdayCheckbox">Tuesday</label>
-        </div>
-        <div class="filter-checkbox">
-            <input type="checkbox" id="wednesdayCheckbox" class="day-checkbox" onchange="filterTutors()">
-            <label for="wednesdayCheckbox">Wednesday</label>
-        </div>
-        <div class="filter-checkbox">
-            <input type="checkbox" id="thursdayCheckbox" class="day-checkbox" onchange="filterTutors()">
-            <label for="thursdayCheckbox">Thursday</label>
-        </div>
-        <div class="filter-checkbox">
-            <input type="checkbox" id="fridayCheckbox" class="day-checkbox" onchange="filterTutors()">
-            <label for="fridayCheckbox">Friday</label>
-        </div>
     </div>
 
 
-    <!-- JavaScript -->
+    <form method="post" action="~/Home/Tutor" id="filterForm">
+        <div class="sidebar-left">
+            <div class="filter-heading">Filters</div>
+            
+            <div class="filter-section">
+                <label class="filter-label" for="rateFilter">Hourly Rate:</label>
+                <select class="filter-select" id="RateFilter" name="Rate">
+                    <option value="">All Rates</option>
+                    @{
+                        foreach (int rate in rates)
+                        {
+                            <option value="@rate">$@rate</option>
+                        }
+                    }
+                   
+@*                     <option value="10">$10</option>
+                    <option value="100">$100</option>
+                    <option value="25">$25</option> *@
+                    <!-- Add more rate options as needed -->
+                </select>
+            </div>
+            <!-- Add more filter sections as needed -->
+            @* <div class="filter-heading-left">Days Available</div>
+            <div class="filter-checkbox">
+                <input type="checkbox" id="mondayCheckbox" name="DaysAvailable" value="Monday">
+                <label for="mondayCheckbox">Monday</label>
+            </div>
+            <div class="filter-checkbox">
+                <input type="checkbox" id="tuesdayCheckbox" name="DaysAvailable" value="Tuesday">
+                <label for="tuesdayCheckbox">Tuesday</label>
+            </div>
+            <div class="filter-checkbox">
+                <input type="checkbox" id="wednesdayCheckbox" name="DaysAvailable" value="Wednesday">
+                <label for="wednesdayCheckbox">Wednesday</label>
+            </div>
+            <div class="filter-checkbox">
+                <input type="checkbox" id="thursdayCheckbox" name="DaysAvailable" value="Thursday">
+                <label for="thursdayCheckbox">Thursday</label>
+            </div>
+            <div class="filter-checkbox">
+                <input type="checkbox" id="fridayCheckbox" name="DaysAvailable" value="Friday">
+                <label for="fridayCheckbox">Friday</label>
+            </div> *@
+            <div>
+                <button class="start-chat" style="margin-left:120px" type="submit">Ok</button>
+            </div>
+        </div>
+    </form>
+
+ 
+
+
+    
     <script>
-        // You can add JavaScript code here if needed
-    </script>
-
-
-    <script>
-        function searchAndHighlight() {
-            var searchText = document.getElementById('searchInput').value.trim().toLowerCase(); // Convert search text to lowercase
-            if (searchText === '') return;
-
-            var elements = document.getElementsByTagName('*');
-            var found = false;
-
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].innerText.toLowerCase().includes(searchText)) { // Convert element text to lowercase for comparison
-                    var innerHTML = elements[i].innerHTML;
-                    var regex = new RegExp(searchText, 'gi'); // Create regular expression with 'g' flag for global search and 'i' flag for case-insensitive search
-                    elements[i].innerHTML = innerHTML.replace(regex, function (match) {
-                        return '<span class="highlight">' + match + '</span>'; // Wrap matched text in a span with highlight class
-                    });
-                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    found = true;
-                    break;
+        // Wait for the DOM to be fully loaded
+        window.onload = function () {
+            // Get the values from the ViewBag
+            var selectedField = '@ViewBag.field';
+            var selectedRate = '@ViewBag.rate';
+            var searchBar = '@ViewBag.search'
+            // Find the dropdown elements
+            var fieldDropdown = document.getElementById('FieldFilter');
+            var rateDropdown = document.getElementById('RateFilter');
+            var searchBarDom = document.getElementById('searchInput');
+            // Set the selected option for the field dropdown
+            if (selectedField) {
+                // Loop through each option in the field dropdown
+                for (var i = 0; i < fieldDropdown.options.length; i++) {
+                    // Check if the option value matches the selectedField value
+                    if (fieldDropdown.options[i].value === selectedField) {
+                        // Set the 'selected' attribute for the matching option
+                        fieldDropdown.options[i].selected = true;
+                        // Exit the loop since we've found the matching option
+                        break;
+                    }
                 }
             }
 
-            if (!found) {
-                alert('Text not found on the page.');
+            if (searchBar) {
+                searchBarDom.value = searchBar
             }
-        }
+
+
+            // Set the selected option for the rate dropdown
+            if (selectedRate) {
+                // Loop through each option in the rate dropdown
+                for (var j = 0; j < rateDropdown.options.length; j++) {
+                    // Check if the option value matches the selectedRate value
+                    if (rateDropdown.options[j].value === selectedRate) {
+                        // Set the 'selected' attribute for the matching option
+                        rateDropdown.options[j].selected = true;
+                        // Exit the loop since we've found the matching option
+                        break;
+                    }
+                }
+            }
+        };
     </script>
 
     <!-- JavaScript -->
-    <script>
-        function filterTutors() {
-            var input = document.getElementById('searchInput').value.toLowerCase();
-            var subjectFilter = document.getElementById('subjectFilter').value.toLowerCase();
-            var rateFilter = document.getElementById('rateFilter').value;
-            var selectedDays = [];
 
-            // Get the selected days
-            var checkboxes = document.querySelectorAll('.day-checkbox');
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    selectedDays.push(checkbox.id.replace('Checkbox', ''));
-                }
-            });
-
-            var tutorCards = document.querySelectorAll('.tutor-card');
-
-            tutorCards.forEach(function (card) {
-                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
-                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
-                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
-                var tutorRate = parseInt(card.querySelector('h2').textContent.replace(/\D+/g, ''));
-
-                var matchesInput = tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input);
-                var matchesSubject = subjectFilter === '' || tutorSubject === subjectFilter;
-                var matchesRate = rateFilter === '' || tutorRate === parseInt(rateFilter);
-                var matchesDays = selectedDays.length === 0 || selectedDays.some(day => tutorDescription.includes(day));
-
-                if (matchesInput && matchesSubject && matchesRate && matchesDays) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function filterTutors() {
-            var input = document.getElementById('searchInput').value.toLowerCase();
-            var subjectFilter = document.getElementById('subjectFilter').value.toLowerCase();
-            var rateFilter = document.getElementById('rateFilter').value;
-
-            var tutorCards = document.querySelectorAll('.tutor-card');
-
-            tutorCards.forEach(function (card) {
-                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
-                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
-                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
-                var tutorRate = parseInt(card.querySelector('h2').textContent.replace(/\D+/g, ''));
-
-                var matchesInput = tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input);
-                var matchesSubject = subjectFilter === '' || tutorSubject === subjectFilter;
-                var matchesRate = rateFilter === '' || tutorRate === parseInt(rateFilter);
-
-                if (matchesInput && matchesSubject && matchesRate) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
 
 
     <!-- JavaScript -->

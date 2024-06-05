@@ -76,7 +76,11 @@
             <p>@Model.Field</p>
             <p>@Model.Descrp</p>
             <p>@Model.Phone</p>
-            <button class="start-chat">Start Chat</button>
+            @* add the model to the chat btn *@
+            <a href="@Url.Action("Chat", "Home")">
+                <button class="start-chat">Start Chat</button>
+
+            </a>
         </div>
     </div>
 </body>
