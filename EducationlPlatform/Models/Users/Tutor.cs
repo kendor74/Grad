@@ -9,7 +9,7 @@
         public int DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         
-        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } = new List<StudentTutorRoom>();
+        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } 
         
 
         public string UserId { get; set; }

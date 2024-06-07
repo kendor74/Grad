@@ -8,7 +8,7 @@
         public float Cost { get; set; }
 
 
-        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } = new List<StudentTutorRoom>();
+        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } 
         
     }
 

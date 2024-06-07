@@ -5,7 +5,7 @@
         [Key]
         public int Id { get; set; }
         
-        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } = new List<StudentTutorRoom>();
+        public virtual ICollection<StudentTutorRoom> StudentTutorRooms { get; set; } 
 
         public string UserId { get; set; }
         public virtual User User { get; set; }

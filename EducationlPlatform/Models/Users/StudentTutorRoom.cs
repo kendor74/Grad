@@ -5,13 +5,12 @@
         public int Id { get; set; }
 
         public int StudentId { get; set; }
-        public virtual Student Student { get; set; }
+        public Student Student { get; set; }
 
         public int TutorId { get; set; }
-        public virtual Tutor Tutor { get; set; }
+        public Tutor Tutor { get; set; }
 
         public int RoomId { get; set; }
-        public virtual Room Room{ get; set; }
-
+        public Room Room{ get; set; }
     }
 }

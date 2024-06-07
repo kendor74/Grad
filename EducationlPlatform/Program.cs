@@ -15,7 +15,11 @@ builder.Services.AddSwaggerGen();
 var IdentityConnection = builder.Configuration.GetConnectionString("EDU_DataBase_Test");
 builder.Services.AddDbContext<IdentityUserDbContext>(options => options.UseSqlServer(IdentityConnection));
 
-
+builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+            });
 
 //Authentication
 
@@ -38,7 +42,8 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<Services<Student>>();
 builder.Services.AddScoped<Services<Tutor>>();
 builder.Services.AddScoped<Services<Department>>();
-builder.Services.AddScoped<Services<StudentTutorRoom>>();
+builder.Services.AddScoped<Services<Room>>();
+//builder.Services.AddScoped<Services<StudentTutorRoom>>();
 
 
 

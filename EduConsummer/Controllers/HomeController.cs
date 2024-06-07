@@ -60,6 +60,8 @@ namespace TestUI.Controllers
 
         public IActionResult LiveStream()
         {
+            //ViewBag.UserId = userId;
+            //ViewBag.RoomId = roomId;
             return View();
         }
 
