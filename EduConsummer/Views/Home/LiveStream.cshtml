@@ -9,20 +9,9 @@
 
     <link rel="stylesheet" href="~/Live Stream/styles/style.css" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
         .chat-btn {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #007bff; /* Light blue */
             color: white;
             border: none;
             cursor: pointer;
@@ -35,11 +24,11 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 300px;
-            height: 400px;
+            width: 250px;
+            height: 300px;
             border: 1px solid #ccc;
             border-radius: 10px;
-            background-color: white;
+            background-color: #f0f0f0; /* Light gray */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             flex-direction: column;
@@ -47,7 +36,7 @@
 
         .chat-header {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #004080; /* Darker blue for the header */
             color: white;
             text-align: center;
             font-size: 18px;
@@ -58,6 +47,7 @@
             flex: 1;
             padding: 10px;
             overflow-y: auto;
+            background-color: #e6e6e6; /* Light gray for the message area */
         }
 
         .chat-input {
@@ -71,11 +61,12 @@
                 border: none;
                 border-radius: 0;
                 border-right: 1px solid #ccc;
+                background-color: #ffffff; /* White background for input */
             }
 
             .chat-input button {
                 padding: 10px;
-                background-color: #007bff;
+                background-color: #007bff; /* Light blue for the send button */
                 color: white;
                 border: none;
                 cursor: pointer;
@@ -87,13 +78,14 @@
 
             .message.user {
                 text-align: left;
-                color: blue;
+                color: #004080; /* Darker blue for user messages */
             }
 
             .message.other {
                 text-align: left;
-                color: green;
+                color: #007bff; /* Light blue for other messages */
             }
+
     </style>
 
 
@@ -211,11 +203,15 @@
         });
 
         document.getElementById("sendmessage").addEventListener("click", function (event) {
-            var user = 'User'; // You can replace this with a dynamic username if needed
+            var user = uid; // You can replace this with a dynamic username if needed
             var message = document.getElementById("message").value;
+            if (message.trim() === '') {
+                return; // Do not send the message if the input is empty or only contains whitespace
+            }
             connection.invoke("SendMessage", user, message).catch(function (err) {
                 return console.error(err.toString());
             });
+            document.getElementById("message").value = ''; // Clear the input field
             event.preventDefault();
         });
 
