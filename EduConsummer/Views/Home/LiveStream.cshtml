@@ -8,6 +8,93 @@
     <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
 
     <link rel="stylesheet" href="~/Live Stream/styles/style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .chat-box {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+            .chat-input input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                border-radius: 0;
+                border-right: 1px solid #ccc;
+            }
+
+            .chat-input button {
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+        .message {
+            margin: 5px 0;
+        }
+
+            .message.user {
+                text-align: left;
+                color: blue;
+            }
+
+            .message.other {
+                text-align: left;
+                color: green;
+            }
+    </style>
 
 
 </head>
@@ -41,7 +128,7 @@
                     <!-- <img src="video-call-img/images/image.png" class="host-img" /> -->
                     <div class="contarols">
                         <a>
-                            <img src="~/Live Stream/images/chat.png" id="chat-btn" />
+                            <img src="~/Live Stream/images/chat.png" id="chat-btn" onclick="toggleChatBox()" />
                         </a>
                         <a>
                             <svg id="camera-btn" class="camera-btn" width="100px" height="100px" viewBox="0 -2 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -80,10 +167,74 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="chat-box" id="chatBox">
+                <div class="chat-header">
+                    Chat
+                </div>
+                <div class="chat-messages" id="discussion">
+                    <!-- Messages will be displayed here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message" placeholder="Type a message...">
+                    <button id="sendmessage">Send</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 <script type="text/javascript" src="~/Live Stream/js/AgoraRTC_N-4.20.0.js"></script>
 <script type="text/javascript" src="~/Live Stream/js/room_rtc_design.js"></script>
+
+<script>
+    function toggleChatBox() {
+        const chatBox = document.getElementById('chatBox');
+        if (chatBox.style.display === 'none' || chatBox.style.display === '') {
+            chatBox.style.display = 'flex';
+        } else {
+            chatBox.style.display = 'none';
+        }
+    }
+</script>
+<script>
+    
+
+    // The following script is your SignalR script
+    document.addEventListener("DOMContentLoaded", function () {
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("sendmessage").addEventListener("click", function (event) {
+            var user = 'User'; // You can replace this with a dynamic username if needed
+            var message = document.getElementById("message").value;
+            connection.invoke("SendMessage", user, message).catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+        });
+
+        connection.on("ReceiveMessage", function (user, message) {
+            var encodedMsg = user + " : " + message;
+            var li = document.createElement("li");
+            li.textContent = encodedMsg;
+            li.classList.add('message');
+            if (user === 'User') {
+                li.classList.add('user');
+            } else {
+                li.classList.add('other');
+            }
+            document.getElementById("discussion").appendChild(li);
+        });
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
+
+
 </html>
 

@@ -10,4 +10,5 @@ global using System.Net.Http.Headers;
 global using System.Security.Policy;
 global using Humanizer;
 global using System.Diagnostics;
+global using EduConsummer;
 
