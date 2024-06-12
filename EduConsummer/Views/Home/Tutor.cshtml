@@ -2,7 +2,7 @@
 @{
     Layout = null;
     List<int> rates = new List<int>();
-    foreach(var item in Model)
+    foreach (var item in Model)
     {
         if (!rates.Contains(item.Rate))
             rates.Add(item.Rate);
@@ -15,51 +15,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutors Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #191C24;
+            background-color: #f7f9fc;
+            color: #333;
         }
 
         .container {
-            max-width: 84%;
-            /* margin: 90px auto; */
-            margin-left: 321px;
-            margin-top: 125px;
+            max-width: 1000px;
+            margin: 100px auto;
             padding: 20px;
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-right: 70px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 30px;
         }
 
-        .logo {
-            float: left;
-            line-height: 80px;
-            padding-left: 60px;
+        .main-header {
+            background-color: #1c1e21;
+            height: 80px;
+            position: fixed;
+            z-index: 12;
+            width: 100%;
+            top: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
+            .main-header .logo img {
+                width: 120px;
+            }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+            .search-bar input[type="text"] {
+                border: none;
+                outline: none;
+                font-size: 16px;
+                padding: 10px 15px;
+                width: 60%;
+                border-radius: 20px;
+                margin-right: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-bar button {
+                border: none;
+                background-color: #f5a425;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: bold;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
 
         .tutor-card {
-            background-color: #f9f9f9;
-            border-radius: 8px;
+            background-color: #fff;
+            border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            box-shadow: 0 0 10px rgba(2, 11, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
         }
 
+            .tutor-card:hover {
+                transform: translateY(-5px);
+            }
+
             .tutor-card img {
-                width: 270px;
+                width: 150px;
                 border-radius: 10px;
-                margin-right: 8px;
+                margin-right: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
 
         .tutor-info {
@@ -67,378 +112,230 @@
         }
 
         .tutor-name {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: #333;
         }
 
         .tutor-subject {
-            font-size: 16px;
+            font-size: 18px;
             color: #666;
-            margin-top: 5px;
+            margin-bottom: 10px;
         }
 
         .tutor-description {
             font-size: 14px;
             color: #777;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
-         .tutor-mail {
+        .tutor-mail, .tutor-phone {
             font-size: 14px;
             color: #777;
-        }
-        .tutor-phone {
-            font-size: 14px;
-            color: #777;
+            margin-bottom: 5px;
         }
 
         .start-chat {
-            font-size: 14px;
-            color: #777;
-            margin-top: 10px;
             display: inline-block;
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
             color: #fff;
-            background-color: rgba(22, 34, 57, 0.95);
+            background-color: #f5a425;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s;
-            outline: none;
         }
 
-        .main-header .logo {
-            float: left;
-            line-height: 80px;
-            padding-left: 60px;
-        }
+            .start-chat:hover {
+                background-color: #e5941c;
+            }
 
-        header {
-            display: block;
-            unicode-bidi: isolate;
-        }
-
-        .main-header {
-            background-color: rgba(22, 34, 57, 0.95);
-            height: 97px;
+        .filter-button {
             position: fixed;
-            z-index: 12;
-            width: 100%;
-            top: 0;
-        }
-
-        a {
-            color: #3CF;
-            text-decoration: none;
-        }
-
-        ul {
-            padding: 0px;
-            margin: 0px;
-            list-style: none;
-        }
-
-        .fa {
-            display: inline-block;
-            font: normal normal normal 14px / 1 FontAwesome;
-            font-size: inherit;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transform: translate(0, 0);
-        }
-
-        .search-bar {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #f0f0f0;
+            top: 100px;
+            left: 30px;
+            background-color: #1c1e21;
+            color: #fff;
+            padding: 10px 20px;
             border-radius: 5px;
-            padding: 12px 14px;
-            width: 60%;
+            cursor: pointer;
+            font-weight: bold;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 20;
         }
 
-            .search-bar input[type="text"] {
-                border: none;
-                outline: none;
-                font-size: 16px;
-                padding: 10px;
-                width: 79%;
-                margin: auto 6px;
-                border-radius: 20px;
-            }
-
-            .search-bar button {
-                border: none;
-                background-color: #007bff;
-                color: #fff;
-                padding: 5px 10px;
-                /* border-radius: 5px; */
-                cursor: pointer;
-                border-radius: 17px;
-                height: 43px;
-                width: 90px;
-                margin-left: 21px;
-            }
-
-        .highlight {
-            background-color: yellow;
+        .filter-button:hover{
+            background-color:#f5a425
         }
+        .sidebar-left {
+            position: fixed;
+            top: 100px;
+            left: -300px; /* Hidden by default */
+            width: 240px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 10;
+        }
+
+            .sidebar-left.show {
+                left: 30px; /* Show sidebar when active */
+            }
 
         .filter-heading {
             margin-bottom: 10px;
+            font-weight: 700;
+            color: #333;
         }
 
         .filter-label {
             font-weight: bold;
             margin-bottom: 5px;
+            display: block;
+            color: #666;
         }
 
         .filter-select {
             width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-
-        .sidebar-left {
-            position: fixed;
-            top: 0;
-            left: 0;
-            /* width: 206px; */
-            /* height: 102%; */
-            margin-left: 26px;
-            margin-top: 127px;
-            background-color: #fff;
-            padding: 40px;
-            box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            /* margin: 90px auto; */
-            border-radius: 8px;
-        }
-
-        .filter-heading-left {
-            margin-bottom: 10px;
-        }
-
-        .filter-label-left {
-            font-weight: bold;
-            margin-bottom: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
 
         .filter-checkbox {
-            font: bold italic;
+            font-weight: bold;
             margin-bottom: 10px;
+            display: block;
+            color: #666;
         }
 
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #f5a425;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #0e1a30;
+            }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
     </style>
     <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
-
 </head>
 <body>
     <header class="main-header clearfix" role="header">
         <div class="logo">
-            <!-- inserting logo  -->
             <a href="~/Home/Index">
-                <img src="/assets/images/logo.png" alt="" style="margin-top: 20px;width: 10%;" bis_size="{&quot;x&quot;:60,&quot;y&quot;:18,&quot;w&quot;:154,&quot;h&quot;:49,&quot;abs_x&quot;:60,&quot;abs_y&quot;:18}" bis_id="bn_aw8ktn9phwagh1lue3njua">
-
+                <img src="/assets/images/logo.png" alt="Logo">
             </a>
         </div>
-        <form asp-action="SearchField" method="post">
-
-            <div class="search-bar">
-                <input type="text" id="searchInput" name="searchBar" placeholder="Search...">
-                <button type="submit">Search</button>
-            </div>
+        <form asp-action="SearchField" method="post" class="search-bar">
+            <input type="text" id="searchInput" name="searchBar" placeholder="Search...">
+            <button type="submit">Search</button>
         </form>
-        
     </header>
+
+    <div class="filter-button" onclick="toggleFilter()">Filters</div>
 
     <div class="container">
         <h1>Our Tutors</h1>
-        @{
-            foreach (var item in Model)
-            {                    
-                    <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
-
-                        <div class="tutor-card">
-                                <img src="~/Images/@item.ImageSrc" alt="@item.Id">
-                            <div class="tutor-info">
-                                    <div class="tutor-name">@item.Name</div>
-                                    <div class="tutor-subject">@item.Field</div>
-                                    <div class="tutor-description">@item.Descrp</div>
-                                    <div class="tutor-mail">@item.Email</div>
-                                    <div class="tutor-phone">@item.Phone</div>
-                                @* add the model to the chat btn *@
-
-                                <h2 style="text-align: end; color: #007bff;">$@item.Rate/hour</h2>
-
-                            </div>
-                        </div>     
-                    </a>
-
-            }
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
+                <div class="tutor-card">
+                    <img src="~/Images/@item.ImageSrc" alt="@item.Id">
+                    <div class="tutor-info">
+                        <div class="tutor-name">@item.Name</div>
+                        <div class="tutor-subject">@item.Field</div>
+                        <div class="tutor-description">@item.Descrp</div>
+                        <div class="tutor-mail">@item.Email</div>
+                        <div class="tutor-phone">@item.Phone</div>
+                        <h2 style="text-align: end; color: #007bff;">$@item.Rate/hour</h2>
+                    </div>
+                </div>
+            </a>
         }
-
-
     </div>
 
-
     <form method="post" action="~/Home/Tutor" id="filterForm">
-        <div class="sidebar-left">
+        <div class="sidebar-left" id="sidebar">
             <div class="filter-heading">Filters</div>
-            
             <div class="filter-section">
                 <label class="filter-label" for="rateFilter">Hourly Rate:</label>
                 <select class="filter-select" id="RateFilter" name="Rate">
                     <option value="">All Rates</option>
-                    @{
-                        foreach (int rate in rates)
-                        {
-                            <option value="@rate">$@rate</option>
-                        }
+                    @foreach (int rate in rates)
+                    {
+                        <option value="@rate">$@rate</option>
                     }
-                   
-@*                     <option value="10">$10</option>
-                    <option value="100">$100</option>
-                    <option value="25">$25</option> *@
-                    <!-- Add more rate options as needed -->
                 </select>
             </div>
-            <!-- Add more filter sections as needed -->
-            @* <div class="filter-heading-left">Days Available</div>
-            <div class="filter-checkbox">
-                <input type="checkbox" id="mondayCheckbox" name="DaysAvailable" value="Monday">
-                <label for="mondayCheckbox">Monday</label>
-            </div>
-            <div class="filter-checkbox">
-                <input type="checkbox" id="tuesdayCheckbox" name="DaysAvailable" value="Tuesday">
-                <label for="tuesdayCheckbox">Tuesday</label>
-            </div>
-            <div class="filter-checkbox">
-                <input type="checkbox" id="wednesdayCheckbox" name="DaysAvailable" value="Wednesday">
-                <label for="wednesdayCheckbox">Wednesday</label>
-            </div>
-            <div class="filter-checkbox">
-                <input type="checkbox" id="thursdayCheckbox" name="DaysAvailable" value="Thursday">
-                <label for="thursdayCheckbox">Thursday</label>
-            </div>
-            <div class="filter-checkbox">
-                <input type="checkbox" id="fridayCheckbox" name="DaysAvailable" value="Friday">
-                <label for="fridayCheckbox">Friday</label>
-            </div> *@
             <div>
-                <button class="start-chat" style="margin-left:120px" type="submit">Ok</button>
+                <button style="background-color:#f5a425" type="submit">Apply</button>
             </div>
         </div>
     </form>
 
- 
-
-
-    
     <script>
-        // Wait for the DOM to be fully loaded
+        function toggleFilter() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
         window.onload = function () {
-            // Get the values from the ViewBag
-            var selectedField = '@ViewBag.field';
             var selectedRate = '@ViewBag.rate';
-            var searchBar = '@ViewBag.search'
-            // Find the dropdown elements
-            var fieldDropdown = document.getElementById('FieldFilter');
+            var searchBar = '@ViewBag.search';
             var rateDropdown = document.getElementById('RateFilter');
             var searchBarDom = document.getElementById('searchInput');
-            // Set the selected option for the field dropdown
-            if (selectedField) {
-                // Loop through each option in the field dropdown
-                for (var i = 0; i < fieldDropdown.options.length; i++) {
-                    // Check if the option value matches the selectedField value
-                    if (fieldDropdown.options[i].value === selectedField) {
-                        // Set the 'selected' attribute for the matching option
-                        fieldDropdown.options[i].selected = true;
-                        // Exit the loop since we've found the matching option
-                        break;
-                    }
-                }
-            }
 
             if (searchBar) {
-                searchBarDom.value = searchBar
+                searchBarDom.value = searchBar;
             }
 
-
-            // Set the selected option for the rate dropdown
             if (selectedRate) {
-                // Loop through each option in the rate dropdown
                 for (var j = 0; j < rateDropdown.options.length; j++) {
-                    // Check if the option value matches the selectedRate value
                     if (rateDropdown.options[j].value === selectedRate) {
-                        // Set the 'selected' attribute for the matching option
                         rateDropdown.options[j].selected = true;
-                        // Exit the loop since we've found the matching option
                         break;
                     }
                 }
             }
         };
     </script>
-
-    <!-- JavaScript -->
-
-
-
-    <!-- JavaScript -->
     <script>
-        function searchAndHighlight() {
-            var searchText = document.getElementById('searchInput').value.trim().toLowerCase(); // Convert search text to lowercase
-            if (searchText === '') return;
-
-            var elements = document.getElementsByTagName('*');
-            var found = false;
-
-            for (var i = 0; i < elements.length; i++) {
-                if (elements[i].innerText.toLowerCase().includes(searchText)) { // Convert element text to lowercase for comparison
-                    var innerHTML = elements[i].innerHTML;
-                    var regex = new RegExp(searchText, 'gi'); // Create regular expression with 'g' flag for global search and 'i' flag for case-insensitive search
-                    elements[i].innerHTML = innerHTML.replace(regex, function (match) {
-                        return '<span class="highlight">' + match + '</span>'; // Wrap matched text in a span with highlight class
-                    });
-                    elements[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                alert('Text not found on the page.');
-            }
+        // Function to toggle the filter sidebar
+        function toggleFilter() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
         }
+
+        // Close the filter sidebar if clicked outside of it
+        document.addEventListener('click', function (event) {
+            var sidebar = document.getElementById('sidebar');
+            var filterButton = document.querySelector('.filter-button');
+            var isClickInside = sidebar.contains(event.target) || filterButton.contains(event.target);
+
+            if (!isClickInside) {
+                sidebar.classList.remove('show');
+            }
+        });
     </script>
-    <script>
-        function filterTutors() {
-            var input = document.getElementById('searchInput').value.toLowerCase();
-            var tutorCards = document.querySelectorAll('.tutor-card');
-
-            tutorCards.forEach(function (card) {
-                var tutorName = card.querySelector('.tutor-name').textContent.toLowerCase();
-                var tutorSubject = card.querySelector('.tutor-subject').textContent.toLowerCase();
-                var tutorDescription = card.querySelector('.tutor-description').textContent.toLowerCase();
-
-                if (tutorName.includes(input) || tutorSubject.includes(input) || tutorDescription.includes(input)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
-
 </body>
 </html>

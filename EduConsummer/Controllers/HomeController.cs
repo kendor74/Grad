@@ -92,10 +92,8 @@ namespace TestUI.Controllers
         {
 
             var list = _list;
-            if (tutor != null )
+            if (tutor != null)
             {
-
-
                 var filteredTutors = _list.AsQueryable();
                 if (!string.IsNullOrEmpty(tutor.Field))
                 {
@@ -107,12 +105,21 @@ namespace TestUI.Controllers
                     filteredTutors = filteredTutors.Where(t => t.Rate == tutor.Rate);
                     ViewBag.rate = tutor.Rate;
                 }
-                ViewBag.search = list[0].Field;
-                list = filteredTutors.ToList();
+
+                var filteredList = filteredTutors.ToList();
+                list = filteredList;
+
+                // Check if there are more than one tutor in any field
+                var fieldCounts = filteredList.GroupBy(t => t.Field)
+                                              .ToDictionary(g => g.Key, g => g.Count());
+
+                bool multipleTutorsInAnyField = fieldCounts.Any(kv => kv.Value > 1);
+
+                // Set ViewBag.search based on the number of tutors in fields
+                ViewBag.search = multipleTutorsInAnyField ? "" : filteredList.FirstOrDefault()?.Field;
             }
-           
-            
-            // get from API List of Tutor which Fields = Field.Id, give the function to take id parameter
+
+            // Return the view with the filtered list
             return View(list);
         }
 

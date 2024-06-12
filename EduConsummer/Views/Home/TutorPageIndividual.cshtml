@@ -9,20 +9,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutor Details</title>
     <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
-
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
         .container {
-            max-width: 800px;
-            margin: 90px auto;
+            max-width: 900px;
+            margin: 120px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
+            .container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            }
 
         img {
             width: 100%;
             border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         header {
@@ -37,49 +51,79 @@
             z-index: 12;
             width: 100%;
             top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            width: 10%;
+        }
+
+        .tutor-details h1, .tutor-details h2, .tutor-details p {
+            margin: 10px 0;
+        }
+
+        .tutor-details h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #162239;
+        }
+
+        .tutor-details h2 {
+            font-size: 2em;
+            color: #162239;
+        }
+
+        .tutor-details p {
+            font-size: 1.2em;
+            color: #555;
         }
 
         .start-chat {
-            font-size: 14px;
-            color: #777;
-            margin-top: 10px;
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
             font-weight: bold;
             color: #fff;
-            background-color: rgba(22, 34, 57, 0.95);
+            background-color: #162239;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
         }
+
+            .start-chat:hover {
+                background-color: #1a1f2b;
+                transform: scale(1.05);
+            }
     </style>
 </head>
 <body>
     <header class="main-header clearfix" role="header">
         <div class="logo">
-            <!-- inserting logo  -->
             <a href="~/Home/Index">
-                <img src="/assets/images/logo.png" alt="" style="width: 12%" bis_size="{&quot;x&quot;:60,&quot;y&quot;:18,&quot;w&quot;:154,&quot;h&quot;:49,&quot;abs_x&quot;:60,&quot;abs_y&quot;:18}" bis_id="bn_aw8ktn9phwagh1lue3njua">
-
+                <img src="/assets/images/logo.png" alt="Logo">
             </a>
         </div>
     </header>
 
     <div class="container">
-        <h1>Tutor Details</h1>
-        <img src="~/images/@Model.ImageSrc" />
         <div class="tutor-details">
+            <h1>Tutor Details</h1>
+            <img src="~/images/@Model.ImageSrc" alt="@Model.Name" />
             <h2>@Model.Name</h2>
-            <p>@Model.Field</p>
-            <p>@Model.Descrp</p>
-            <p>@Model.Phone</p>
-            @* add the model to the chat btn *@
+            <p><strong>Field:</strong> @Model.Field</p>
+            <p><strong>Description:</strong> @Model.Descrp</p>
+            <p><strong>Phone:</strong> @Model.Phone</p>
             <a href="@Url.Action("Chat", "Home")">
+                <!--sending the Tutor id to the chat system-->
                 <button class="start-chat">Start Chat</button>
-
             </a>
         </div>
     </div>
