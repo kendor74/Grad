@@ -1,0 +1,327 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="~/Live Stream/styles/style.css" />
+    <style>
+        .chat-box {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            border: 2px solid #b366f9;
+            border-radius: 15px;
+            background-color: #00122e;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            flex-direction: column;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background-color: #182842;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #b366f9;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f7f7f7;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #182842;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            background-color: #fff;
+            color: #000;
+        }
+        .chat-input button {
+            padding: 10px 15px;
+            background-color: #b366f9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-left: 10px
+        }
+
+        .chat-input button:hover {
+                    background-color: #a259e7;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 80%;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+
+        /* Main user message */
+        .message.user {
+            background-color: #d1eaff;
+            color: #0056b3;
+            text-align: right;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+        }
+
+         /* Other user messages */
+        .message.other {
+            background-color: #fff;
+            color: #000;
+            text-align: left;
+            margin-right: auto;
+            border-bottom-left-radius: 0;
+        }
+
+        /* Improved chat toggle button */
+        #chat-btn:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f7f7f7;
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: #b366f9 #f7f7f7; /* For Firefox */
+        }
+
+            /* Customize scrollbar for Webkit browsers (Chrome, Safari) */
+            .chat-messages::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .chat-messages::-webkit-scrollbar-track {
+                background: #f7f7f7;
+            }
+
+            .chat-messages::-webkit-scrollbar-thumb {
+                background-color: #b366f9;
+                border-radius: 10px;
+            }
+
+                .chat-messages::-webkit-scrollbar-thumb:hover {
+                    background-color: #a259e7;
+                }
+
+        .message-notification {
+            position: relative;
+            display: inline-block;
+        }
+
+        .badge {
+            position: absolute;
+            top: 47px;
+            right: 16px;
+            background-color: #a70404;
+            color: white;
+            border-radius: 50%;
+            padding: 2px;
+            font-size: 14px;
+            min-width: 20px;
+            text-align: center;
+            display: none; 
+        }
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <nav>
+            <a class="sidebar-brand brand-logo" href="~/Home/Index">
+                <img id="logo" src="~/assets/images/logo.png" alt="logo"
+                     style="width: 100px;" />
+            </a>
+             <ul>
+                 <!--white board-->
+                <li><img src="~/Live Stream/images/video.png"/></li>
+                <li><img src="~/Live Stream/images/notification.png"/></li>
+                <li><img src="~/Live Stream/images/users.png"/></li>
+                <li><img src="~/Live Stream/images/message.png"/></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="top-icons">
+                <img src="~/Live Stream/images/search.png" />
+                <img src="~/Live Stream/images/menu.png" />
+            </div>
+
+            <div class="row">
+                <div class="col-1" id="col-1">
+                    <div id="local_user">
+                    </div>
+                    <!-- <img src="video-call-img/images/image.png" class="host-img" /> -->
+                    <div class="contarols">
+                        <a id="message-icon" onclick="toggleChatBox()">
+                            <div id="message-notification" class="message-notification">
+                                <img src="~/Live Stream/images/chat.png" id="chat-btn" />
+                                <span id="message-count" class="badge">0</span>
+                            </div>
+                        </a>
+                        <a>
+                            <svg id="camera-btn" class="camera-btn" width="100px" height="100px" viewBox="0 -2 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-258.000000, -467.000000)" fill="#000000">
+                                        <path d="M286,471 L283,471 L282,469 C281.411,467.837 281.104,467 280,467 L268,467 C266.896,467 266.53,467.954 266,469 L265,471 L262,471 C259.791,471 258,472.791 258,475 L258,491 C258,493.209 259.791,495 262,495 L286,495 C288.209,495 290,493.209 290,491 L290,475 C290,472.791 288.209,471 286,471 Z M274,491 C269.582,491 266,487.418 266,483 C266,478.582 269.582,475 274,475 C278.418,475 282,478.582 282,483 C282,487.418 278.418,491 274,491 Z M274,477 C270.687,477 268,479.687 268,483 C268,486.313 270.687,489 274,489 C277.313,489 280,486.313 280,483 C280,479.687 277.313,477 274,477 L274,477 Z" id="camera" sketch:type="MSShapeGroup">
+
+                                        </path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+
+                        <a asp-action="ExitTheStream">
+                            <img src="~/Live Stream/images/call.png"
+                                 class="call-icon"
+                                 id="leave-btn" />
+                        </a>
+
+                        <a>
+                            <img src="~/Live Stream/images/mic.png"
+                                 id="mic-btn" />
+                        </a>
+
+                        <a>
+                            <img src="~/Live Stream/images/cast.png" id="screen-btn" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="joined">
+                        <p>People Joined</p>
+                        <div class="remote-container" id="remote-users">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="chat-box" id="chatBox">
+                <div class="chat-header">
+                    Chat
+                </div>
+                <div class="chat-messages" id="discussion">
+                    <!-- Messages will be displayed here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message" placeholder="Type a message...">
+                    <button id="sendmessage"><i class="fas fa-paper-plane"></i></button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="~/Live Stream/js/AgoraRTC_N-4.20.0.js"></script>
+<script type="text/javascript" src="~/Live Stream/js/room_rtc_design.js"></script>
+
+<script>
+    function toggleChatBox() {
+        const chatBox = document.getElementById('chatBox');
+        chatBox.style.display = chatBox.style.display === 'none' || chatBox.style.display === '' ? 'flex' : 'none';
+    }
+</script>
+<script>
+
+
+    // The following script is your SignalR script
+    document.addEventListener("DOMContentLoaded", function () {
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .build();
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        document.getElementById("sendmessage").addEventListener("click", function (event) {
+            var message = document.getElementById("message").value;
+            if (message.trim() === '') {
+                return; // Do not send the message if the input is empty or only contains whitespace
+            }
+            connection.invoke("SendMessage", uid, message).catch(function (err) {
+                return console.error(err.toString());
+            });
+            document.getElementById("message").value = ''; // Clear the input field
+            messageCount = countMessages();
+            updateMessageCount(messageCount);
+            event.preventDefault();
+            
+        });
+
+        connection.on("ReceiveMessage", function (user, message) {
+            var messageContainer = document.createElement("div");
+            messageContainer.classList.add('message');
+            if (user === uid) {
+                messageContainer.classList.add('user');
+                messageContainer.innerHTML = `<span class="message-text">${message}</span> <span class="message-uid"> : ${user}</span>`;
+            } else {
+                messageContainer.classList.add('other');
+                messageContainer.innerHTML = `<span class="message-uid">${user} : </span> <span class="message-text">${message}</span>`;
+            }
+            document.getElementById("discussion").appendChild(messageContainer);
+            messageCount = countMessages();
+            updateMessageCount(messageCount);
+        });
+
+       
+    });
+
+
+    function updateMessageCount(messageCount) {
+        const messageBadge = document.getElementById("message-count");
+        messageBadge.textContent = messageCount;
+        if (messageCount > 0) {
+            messageBadge.style.display = "block";
+        } else {
+            messageBadge.style.display = "none";
+        }
+    }
+
+    function countMessages() {
+        const messageContainer = document.getElementById("discussion");
+        const messageCount = messageContainer.children.length;
+        return messageCount;
+    }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
+
+
+</html>
+

@@ -1,0 +1,189 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+    string firstName, lastName;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sign Up</title>
+
+    <!-- Font Icon -->
+    <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
+
+    <link rel="stylesheet"
+          href="~/Register/fonts/material-icon/css/material-design-iconic-font.min.css" />
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Register/css/style.css" />
+
+
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-img">
+                    <img src="~/Register/image/signup-img.jpg" alt="" />
+                </div>
+                <div class="signup-form">
+                    <form class="register-form" id="register-form"
+                    style="padding: 0 35px 0 70px;
+                           background-color: #1a3970;
+                           margin-top: -17px;"
+                          asp-action="CreateUser"
+                          asp-controller="User" method="Post">
+
+
+                        <h2 style="font-family:'Montserrat';">Registration Form</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">First Name :</label>
+                                <input type="text" name="firstname" id="name" required asp-for="FirstName"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="father_name">Last Name :</label>
+                                <input type="text"
+                                       name="lastname"
+                                       id="father_name"
+                                       required 
+                                       asp-for="LastName"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Email">Email :</label>
+                            <input type="email" name="Email" id="email" asp-for="Email"/>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Age :</label>
+                                <input type="number" name="Age" id="age" required asp-for="Age"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number :</label>
+                                @Html.TextBoxFor(model => model.PhoneNumber, new { id = "phoneNumber" })
+
+
+
+                                @* <input type="text"
+                                       name="phone"
+                                       placeholder="(+20) 01X XXX XXX XX"
+                                       id="phone"
+                                       required 
+                                       asp-for="PhoneNumber"/> *@
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div class="form-group">
+
+
+                                                               pattern="^01[0-2,5]{1}[0-9]{8}$"
+
+                          <label for="ccn">Credit Card Number:</label>
+                          <input
+                            id="ccn"
+                            type="tel"
+                            inputmode="numeric"
+                            pattern="[0-9\s]{13,19}"
+                            autocomplete="cc-number"
+                            maxlength="19"
+                            placeholder="xxxx xxxx xxxx xxxx"
+                            required
+                          />
+                          -->
+                       
+                        <div class="form-radio">
+                            <label for="gender" class="radio-label">Gender :</label>
+                            <div class="form-radio-item">
+@*                                 <input type="radio" name="gender" id="male" checked />
+ *@                                @Html.RadioButtonFor(model => model.Gender, "male", new { id = "male" })
+
+                                <label for="male">Male</label>
+                                <span class="check"></span>
+                            </div>
+                            <div class="form-radio-item">
+                                @Html.RadioButtonFor(model => model.Gender, "female", new { id = "female" })                                <label for="female">Female</label>
+                                <span class="check"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="state">Role :</label>
+                                <div class="form-select">
+                                    <select name="role" id="state" asp-for="Role">
+                                        <option value="student">Student</option>
+                                        <option value="tutor">Tutor</option>
+                                    </select>
+                                    <span class="select-icon">
+                                        <i class="zmdi zmdi-chevron-down"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">City :</label>
+                                <div class="form-select">
+                                    <select name="city" id="city" asp-for="City">
+                                        <option value="cr">Cairo</option>
+                                        <option value="gi">Giza</option>
+                                    </select>
+                                    <span class="select-icon">
+                                        <i class="zmdi zmdi-chevron-down"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label>Password :</label>
+                            <input name="password" id="password" type="password" asp-for="Password" />
+                        </div>
+                        <div class="form-group">
+                            <label >Confirm Password :</label>
+                            <input type="password" name="confirm_password" id="confirm_password" />
+                            <span id='message'></span>
+
+                        </div>
+                        <div class="form-submit">
+                            <input type="submit"
+                                   value="Submit"
+                                   class="submit"
+                                   name="submit"
+                                   id="submit" 
+                                    />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        //edit
+        $('#password, #confirm_password').on('keyup', function () {
+            if ($('#password').val() == $('#confirm_password').val()) {
+                $('#message').html('Matching').css('color', 'green');
+            } else
+                $('#message').html('Not Matching').css('color', 'red');
+        });
+    </script>
+    <script src="~/Register/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Register/js/main.js"></script>
+</body>
+</html>

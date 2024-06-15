@@ -1,0 +1,205 @@
+﻿@model User
+@{
+    Layout = "_Layout";
+}
+<head>
+
+    <link rel="stylesheet" href="~/css/profile.css" />
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            var fileInput = input;
+
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
+    <style>
+        .row{
+            padding:5px;
+        }
+        label{
+            color: #6c7293;
+        }
+    </style>
+
+
+</head>
+<div class="container emp-profile">
+    <form>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    @* putting @Model.ImagePath   *@
+                    <img id="preview" src="~/Upload/@Model.ImagePath" alt="image"/>
+                    <div class="file btn btn-lg btn-primary" style="cursor:pointer;">
+                        Change Photo
+                        <input type="file" name="ImageData" id="ImageData" onchange="previewImage(this);" asp-for=Image style="cursor:pointer" />
+                        <br />
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h1 style="color:#425cbb">
+                        @Model.FirstName @Model.LastName
+                    </h1>
+                    <h4>
+                        @Model.Role
+                    </h4>
+                    <div style="font-size:10px; margin:10px;color:red">this field can not be changed</div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row" style="padding:5px;">
+            @* <div class="col-md-4">
+            <div class="profile-work">
+            <p>WORK LINK</p>
+            <a href="">Website Link</a><br />
+            <a href="">Bootsnipp Profile</a><br />
+            <a href="">Bootply Profile</a>
+            <p>SKILLS</p>
+            <a href="">Web Designer</a><br />
+            <a href="">Web Developer</a><br />
+            <a href="">WordPress</a><br />
+            <a href="">WooCommerce</a><br />
+            <a href="">PHP, .Net</a><br />
+            </div>
+            </div >*@
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent"  >
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>User Name :</label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.UserName"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+
+
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>First Name :</label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.FirstName"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+
+
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>Last Name:</label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.LastName"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+                        
+                        
+
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.Email"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+                        
+                        
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>Age : </label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.Age"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+
+                        <div class="container row">
+                            <div class="col-md-6">
+                                <label>Phone :</label>
+                            </div>
+                            <div class="webflow-style-input">
+                                <input class="input-test" type="email" placeholder="@Model.PhoneNumber"></input>
+                            </div>
+                            <div class="demo-flex-spacer"></div>
+                        </div>
+
+
+
+
+
+
+
+                        @{
+                            if (Model.Role == "Tutor")
+                            {
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label>Department</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Web Developer and Designer</p>
+
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Description :</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" style="font-size:13px;color: #8d8d8d;" value="    CairoCairoCairoCairoCairoCairoCairoCairoCairoCairo
+                                                    CairoCairoCairoCairoCairoCairoCairoCairoCairoCairo
+                                                    " />
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+
+
+                    </div>
+
+                    <div class="col-md-2" id="profile-edit-btn">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Save" style="background-color:#1d7443;
+                       margin-left:510px;
+                       padding:10px;
+                       width:109%;
+
+                        " asp-action="EditProfile"/>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>
+

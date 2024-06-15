@@ -1,0 +1,237 @@
+﻿
+.emp-profile {
+    padding: 6%;
+    width: 100%;
+    margin-bottom: -1%;
+    border-radius: 0.5rem;
+    background: #161c20;
+}
+
+.profile-img {
+    text-align: center;
+}
+
+    .profile-img img {
+        width: 70%;
+        height: 100%;
+    }
+
+    .profile-img .file {
+        position: relative;
+        overflow: hidden;
+        margin-top: -20%;
+        width: 70%;
+        border: none;
+        border-radius: 0;
+        font-size: 15px;
+        background: #212529b8;
+    }
+
+        .profile-img .file input {
+            position: absolute;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+
+.profile-head h5 {
+    color: #333;
+}
+
+.profile-head h6 {
+    color: #0062cc;
+}
+
+.profile-edit-btn {
+    background: blue;
+    padding: 11px;
+    border-radius: 11px;
+    color: #fff;
+    font-size: 13px;
+    margin-top: 45px;
+    border: none;
+    width: 65%;
+    font-weight:550;
+    cursor: pointer;
+}
+
+.proile-rating {
+    font-size: 12px;
+    color: #818182;
+    margin-top: 5%;
+}
+
+    .proile-rating span {
+        color: #495057;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+.profile-head .nav-tabs {
+    margin-bottom: 5%;
+}
+
+    .profile-head .nav-tabs .nav-link {
+        font-weight: 600;
+        border: none;
+    }
+
+        .profile-head .nav-tabs .nav-link.active {
+            border: none;
+            border-bottom: 2px solid #0062cc;
+        }
+
+.profile-work {
+    padding: 14%;
+    margin-top: -15%;
+}
+
+    .profile-work p {
+        font-size: 12px;
+        color: #818182;
+        font-weight: 600;
+        margin-top: 10%;
+    }
+
+    .profile-work a {
+        text-decoration: none;
+        color: #495057;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .profile-work ul {
+        list-style: none;
+    }
+
+.profile-tab label {
+    font-weight: 600;
+}
+
+.profile-tab p {
+    font-weight: 600;
+}
+
+
+/*
+input { border-style: none; background: transparent; outline: none; }
+
+
+
+
+// for demo
+
+
+.demo-flex-spacer {
+  flex-grow: 1;
+}
+.contain {
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+// colors
+$input-background: rgba(57, 63, 84, 0.8);
+$input-text-inactive: #7881A1;
+$input-text-active: #BFD2FF;
+
+// gradient animation
+@keyframes gradient { 
+  0%{background-position:0 0}
+  100%{background-position:100% 0}
+}
+
+.webflow-style-input {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 1.4rem 2rem 1.6rem;
+  background: $input-background;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 999;
+    height: 2px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-position: 0% 0%;
+    background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+    background-size: 500% auto;
+    animation: gradient 3s linear infinite;
+  }
+}
+
+.webflow-style-input input {
+  flex-grow: 1;
+  color: $input-text-active;
+  font-size: 1.1rem;
+  line-height: 1.4rem;
+  vertical-align: middle;
+  &::-webkit-input-placeholder {
+    color: $input-text-inactive;
+  }
+}*/
+.input-test {
+    border-style: none;
+    background: transparent;
+    outline: none;
+}
+
+
+
+.demo-flex-spacer {
+    flex-grow: 1;
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.webflow-style-input {
+    position: relative;
+    max-width: 220px;
+    border-radius: 2px;
+    padding:5px;
+    background: rgba(57, 63, 84, 0.8);
+}
+
+    .webflow-style-input:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 999;
+        height: 4px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background-position: 0% 0%;
+        background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+        background-size: 500% auto;
+        animation: gradient 3s linear infinite;
+    }
+
+    .webflow-style-input input {
+        color: #BFD2FF;
+    }
+
+        .webflow-style-input input::-webkit-input-placeholder {
+            color: #7881A1;
+        }
+

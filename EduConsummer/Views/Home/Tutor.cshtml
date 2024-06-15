@@ -1,0 +1,341 @@
+﻿@model List<Tutor>
+@{
+    Layout = null;
+    List<int> rates = new List<int>();
+    foreach (var item in Model)
+    {
+        if (!rates.Contains(item.Rate))
+            rates.Add(item.Rate);
+    }
+    rates.Sort();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutors Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .main-header {
+            background-color: #1c1e21;
+            height: 80px;
+            position: fixed;
+            z-index: 12;
+            width: 100%;
+            top: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .main-header .logo img {
+                width: 120px;
+            }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+            .search-bar input[type="text"] {
+                border: none;
+                outline: none;
+                font-size: 16px;
+                padding: 10px 15px;
+                width: 60%;
+                border-radius: 20px;
+                margin-right: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-bar button {
+                border: none;
+                background-color: #f5a425;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-weight: bold;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+        .tutor-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+            .tutor-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .tutor-card img {
+                width: 150px;
+                border-radius: 10px;
+                margin-right: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+        .tutor-info {
+            flex: 1;
+        }
+
+        .tutor-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .tutor-subject {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .tutor-description {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .tutor-mail, .tutor-phone {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .start-chat {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #f5a425;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .start-chat:hover {
+                background-color: #e5941c;
+            }
+
+        .filter-button {
+            position: fixed;
+            top: 100px;
+            left: 30px;
+            background-color: #1c1e21;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 20;
+        }
+
+        .filter-button:hover{
+            background-color:#f5a425
+        }
+        .sidebar-left {
+            position: fixed;
+            top: 100px;
+            left: -300px; /* Hidden by default */
+            width: 240px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 10;
+        }
+
+            .sidebar-left.show {
+                left: 30px; /* Show sidebar when active */
+            }
+
+        .filter-heading {
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #666;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .filter-checkbox {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            color: #666;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #f5a425;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #0e1a30;
+            }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
+</head>
+<body>
+    <header class="main-header clearfix" role="header">
+        <div class="logo">
+            <a href="~/Home/Index">
+                <img src="/assets/images/logo.png" alt="Logo">
+            </a>
+        </div>
+        <form asp-action="SearchField" method="post" class="search-bar">
+            <input type="text" id="searchInput" name="searchBar" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <div class="filter-button" onclick="toggleFilter()">Filters</div>
+
+    <div class="container">
+        <h1>Our Tutors</h1>
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
+                <div class="tutor-card">
+                    <img src="~/Images/@item.ImageSrc" alt="@item.Id">
+                    <div class="tutor-info">
+                        <div class="tutor-name">@item.Name</div>
+                        <div class="tutor-subject">@item.Field</div>
+                        <div class="tutor-description">@item.Descrp</div>
+                        <div class="tutor-mail">@item.Email</div>
+                        <div class="tutor-phone">@item.Phone</div>
+                        <h2 style="text-align: end; color: #007bff;">$@item.Rate/hour</h2>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <form method="post" action="~/Home/Tutor" id="filterForm">
+        <div class="sidebar-left" id="sidebar">
+            <div class="filter-heading">Filters</div>
+            <div class="filter-section">
+                <label class="filter-label" for="rateFilter">Hourly Rate:</label>
+                <select class="filter-select" id="RateFilter" name="Rate">
+                    <option value="">All Rates</option>
+                    @foreach (int rate in rates)
+                    {
+                        <option value="@rate">$@rate</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <button style="background-color:#f5a425" type="submit">Apply</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function toggleFilter() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        window.onload = function () {
+            var selectedRate = '@ViewBag.rate';
+            var searchBar = '@ViewBag.search';
+            var rateDropdown = document.getElementById('RateFilter');
+            var searchBarDom = document.getElementById('searchInput');
+
+            if (searchBar) {
+                searchBarDom.value = searchBar;
+            }
+
+            if (selectedRate) {
+                for (var j = 0; j < rateDropdown.options.length; j++) {
+                    if (rateDropdown.options[j].value === selectedRate) {
+                        rateDropdown.options[j].selected = true;
+                        break;
+                    }
+                }
+            }
+        };
+    </script>
+    <script>
+        // Function to toggle the filter sidebar
+        function toggleFilter() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // Close the filter sidebar if clicked outside of it
+        document.addEventListener('click', function (event) {
+            var sidebar = document.getElementById('sidebar');
+            var filterButton = document.querySelector('.filter-button');
+            var isClickInside = sidebar.contains(event.target) || filterButton.contains(event.target);
+
+            if (!isClickInside) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
