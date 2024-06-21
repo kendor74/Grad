@@ -30,7 +30,7 @@ namespace TestUI.Controllers
                     new Tutor { Id = 4 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
                         Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 25
                         ,Phone = "01002631470"},
-                    new Tutor { Id = 1 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
+                    new Tutor { Id = 8 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
                         Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 100
                         ,Phone = "01002631470"},
                     new Tutor { Id = 5 ,  Name = "Mohamed El-Hoseny",  Descrp  = "Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.",

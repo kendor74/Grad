@@ -2,13 +2,19 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html lang="en" lang="en">
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width , initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="~/assets/images/title.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="~/Live Stream/styles/style.css" />
     <style>
+        body {
+            background: linear-gradient(to bottom right, #00122e, #182842);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+        }
+
         .chat-box {
             display: none;
             position: fixed;
@@ -51,30 +57,31 @@
             border-radius: 0 0 15px 15px;
         }
 
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px 0 0 5px;
-            font-size: 16px;
-            background-color: #fff;
-            color: #000;
-        }
-        .chat-input button {
-            padding: 10px 15px;
-            background-color: #b366f9;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 0 5px 5px 0;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            margin-left: 10px
-        }
+            .chat-input input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                border-radius: 5px 0 0 5px;
+                font-size: 16px;
+                background-color: #fff;
+                color: #000;
+            }
 
-        .chat-input button:hover {
+            .chat-input button {
+                padding: 10px 15px;
+                background-color: #b366f9;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                border-radius: 0 5px 5px 0;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+                margin-left: 10px
+            }
+
+                .chat-input button:hover {
                     background-color: #a259e7;
-        }
+                }
 
         .message {
             margin: 10px 0;
@@ -85,23 +92,23 @@
             word-wrap: break-word;
         }
 
-        /* Main user message */
-        .message.user {
-            background-color: #d1eaff;
-            color: #0056b3;
-            text-align: right;
-            margin-left: auto;
-            border-bottom-right-radius: 0;
-        }
+            /* Main user message */
+            .message.user {
+                background-color: #d1eaff;
+                color: #0056b3;
+                text-align: right;
+                margin-left: auto;
+                border-bottom-right-radius: 0;
+            }
 
-         /* Other user messages */
-        .message.other {
-            background-color: #fff;
-            color: #000;
-            text-align: left;
-            margin-right: auto;
-            border-bottom-left-radius: 0;
-        }
+            /* Other user messages */
+            .message.other {
+                background-color: #fff;
+                color: #000;
+                text-align: left;
+                margin-right: auto;
+                border-bottom-left-radius: 0;
+            }
 
         /* Improved chat toggle button */
         #chat-btn:hover {
@@ -152,7 +159,7 @@
             font-size: 14px;
             min-width: 20px;
             text-align: center;
-            display: none; 
+            display: none;
         }
     </style>
 
@@ -164,12 +171,12 @@
                 <img id="logo" src="~/assets/images/logo.png" alt="logo"
                      style="width: 100px;" />
             </a>
-             <ul>
-                 <!--white board-->
-                <li><img src="~/Live Stream/images/video.png"/></li>
-                <li><img src="~/Live Stream/images/notification.png"/></li>
-                <li><img src="~/Live Stream/images/users.png"/></li>
-                <li><img src="~/Live Stream/images/message.png"/></li>
+            <ul>
+                <!--white board-->
+                <li><img src="~/Live Stream/images/video.png" /></li>
+                <li><img src="~/Live Stream/images/notification.png" /></li>
+                <li><img src="~/Live Stream/images/users.png" /></li>
+                <li><img src="~/Live Stream/images/message.png" /></li>
             </ul>
         </nav>
 
@@ -257,8 +264,6 @@
     }
 </script>
 <script>
-
-
     // The following script is your SignalR script
     document.addEventListener("DOMContentLoaded", function () {
         let connection = new signalR.HubConnectionBuilder()
@@ -281,7 +286,6 @@
             messageCount = countMessages();
             updateMessageCount(messageCount);
             event.preventDefault();
-            
         });
 
         connection.on("ReceiveMessage", function (user, message) {
@@ -298,10 +302,7 @@
             messageCount = countMessages();
             updateMessageCount(messageCount);
         });
-
-       
     });
-
 
     function updateMessageCount(messageCount) {
         const messageBadge = document.getElementById("message-count");
@@ -318,10 +319,6 @@
         const messageCount = messageContainer.children.length;
         return messageCount;
     }
-
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.7/signalr.min.js"></script>
-
-
 </html>
-

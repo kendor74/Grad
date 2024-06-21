@@ -8,7 +8,7 @@
 .header {
     width: 100%;
     height: 650px;
-    background: #00122e;
+    background: linear-gradient(to bottom right, #143262, #9c50bb);
     position: relative;
 }
 
@@ -144,7 +144,7 @@ nav {
     height: 50px;
     margin: 20px 10px;
     cursor: pointer;
-    background-color: #182842;
+    background-color: #785e9d;
     color: #fff;
     border: none;
     display: flex;
