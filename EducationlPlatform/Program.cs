@@ -1,10 +1,11 @@
 
+using EducationlPlatform;
 using EducationlPlatform.Models.Handler;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -98,10 +99,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();
+
 app.MapControllers();
 
 //here we assign the existing roles in our project
-using(var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var _roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -148,6 +150,8 @@ using(var scope = app.Services.CreateScope())
 
     }
 }
+
+
 
 
 app.Run();

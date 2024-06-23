@@ -31,7 +31,39 @@ namespace EducationlPlatform.Models.Context
                 .WithMany(t => t.StudentTutorRooms)
                 .HasForeignKey(str => str.TutorId)
                 .OnDelete(DeleteBehavior.Restrict);
-        }
+
+			modelBuilder.Entity<Message>(entity =>
+			{
+				entity.HasKey(e => e.Id);
+
+				entity.Property(e => e.Text)
+					  .IsRequired();
+
+				entity.Property(e => e.Timestamp)
+					  .IsRequired();
+			});
+
+			modelBuilder.Entity<Contact>(entity =>
+			{
+				entity.HasKey(e => e.Id);
+
+				entity.HasOne(e => e.Student)
+					  .WithMany()
+					  .HasForeignKey(e => e.StudentId)
+					  .OnDelete(DeleteBehavior.Restrict);
+
+				entity.HasOne(e => e.Tutor)
+					  .WithMany()
+					  .HasForeignKey(e => e.TutorId)
+					  .OnDelete(DeleteBehavior.Restrict);
+
+				entity.HasMany(e => e.Messages)
+					  .WithOne(m => m.Contact)
+					  .HasForeignKey(m => m.ContactId);
+			});
+
+
+		}
 
 
         public DbSet<Student> Students { get; set; }
@@ -39,5 +71,9 @@ namespace EducationlPlatform.Models.Context
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<StudentTutorRoom> StudentTutorRoom { get; set;}
-    }
+        
+        public DbSet<Transaction> Transactions { get; set; }
+		public DbSet<Contact> Contacts { get; set; }
+		public DbSet<Message> Messages { get; set; }
+	}
 }
