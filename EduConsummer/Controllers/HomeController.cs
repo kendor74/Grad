@@ -62,6 +62,7 @@ namespace TestUI.Controllers
         {
             //ViewBag.UserId = userId;
             //ViewBag.RoomId = roomId;
+            ViewBag.InitialTime = 3600; // 1 hour for example
             return View();
         }
 
