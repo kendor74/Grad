@@ -260,7 +260,7 @@
         {
             <a href="@Url.Action("TutorPageIndividual", "Home", new { id = item.Id })">
                 <div class="tutor-card">
-                    <img src="~/Images/@item.ImageSrc" alt="@item.Id">
+                    <img src="@item.ImageSrc" alt="@item.Id">
                     <div class="tutor-info">
                         <div class="tutor-name">@item.Name</div>
                         <div class="tutor-subject">@item.Field</div>

@@ -39,6 +39,7 @@
             margin-bottom: 20px;
         }
 
+
         header {
             display: block;
             unicode-bidi: isolate;
@@ -57,7 +58,10 @@
             padding: 0 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
+        .tutor-details{
+            margin-left:117px;
+            width:75%;
+        }
         .logo img {
             width: 10%;
         }
@@ -116,7 +120,7 @@
     <div class="container">
         <div class="tutor-details">
             <h1>Tutor Details</h1>
-            <img src="~/images/@Model.ImageSrc" alt="@Model.Name" />
+            <img class="tutor" src="@Model.ImageSrc" alt="@Model.Name" />
             <h2>@Model.Name</h2>
             <p><strong>Field:</strong> @Model.Field</p>
             <p><strong>Description:</strong> @Model.Descrp</p>

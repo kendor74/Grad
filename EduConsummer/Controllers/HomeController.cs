@@ -12,31 +12,27 @@ namespace TestUI.Controllers
             _logger = logger;
             _list = new List<Tutor>
             {
-                    new Tutor { Id = 1 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Arabic", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 100
+                    new Tutor { Id = 1 ,  Name = "Harvey Specter",  Descrp  = "An experienced C# tutor with a passion for teaching ASP .Net FrameWork, MVC Core and Web API.",
+                        Field = "C#", ImageSrc = "http://emilcarlsson.se/assets/harveyspecter.png" , Email = "HarveySpecter@gmail.com" ,Rate = 100
                         ,Phone = "01002631470"},
-                     new Tutor { Id = 6 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Arabic", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 10
+                    new Tutor { Id = 2 ,  Name = "Jonathan Sidwell",  Descrp  = "An experienced English tutor with a passion for teaching English literature and linguistics",
+                        Field = "English", ImageSrc = "http://emilcarlsson.se/assets/jonathansidwell.png" , Email = "JonathanSidwell@gmail.com" ,Rate = 10
+                        ,Phone = "01234568100"},
+                    new Tutor { Id = 3 ,  Name = "Charles Forstman",  Descrp  = "An experienced Python and Image Processing tutor with a passion for teaching image processing and enhancment.",
+                        Field = "Python", ImageSrc = "http://emilcarlsson.se/assets/charlesforstman.png" , Email = "CharlesForstman@gmail.com" ,Rate = 10
+                        ,Phone = "01122338810"},
+                    new Tutor { Id = 4,  Name = "Katrina Bennett",  Descrp  = "An experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
+                        Field = "Mathematics", ImageSrc = "http://emilcarlsson.se/assets/katrinabennett.png" , Email = "KatrinaBennett@gmail.com" ,Rate = 25
+                        ,Phone = "01506806510"},
+                    new Tutor { Id = 5 ,  Name = "Daniel Hardman",  Descrp  = "An experienced math tutor with a passion for teaching ASP .Net FrameWork, MVC Core and Web API.",
+                        Field = ".Net", ImageSrc = "http://emilcarlsson.se/assets/danielhardman.png" , Email = "DanielHardman@gmail.com" ,Rate = 25
+                        ,Phone = "01111122365"},
+                    new Tutor { Id = 6 ,  Name = "Harold Gunderson",  Descrp  = "An experienced math tutor with a passion for teaching Geography and Countries.",
+                        Field = "Geography", ImageSrc = "http://emilcarlsson.se/assets/haroldgunderson.png" , Email = "HaroldGunderson@gmail.com" ,Rate = 25
                         ,Phone = "01002631470"},
-                      new Tutor { Id = 7 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Arabic", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 10
-                        ,Phone = "01002631470"},
-                    new Tutor { Id = 2,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 25
-                        ,Phone = "01002631470"},
-                    new Tutor { Id = 3 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 25
-                        ,Phone = "01002631470"},
-                    new Tutor { Id = 4 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 25
-                        ,Phone = "01002631470"},
-                    new Tutor { Id = 8 ,  Name = "Mohamed Abdulaziz",  Descrp  = "Mohamed is an experienced math tutor with a passion for teaching algebra, calculus, and geometry.",
-                        Field = "Mathematics", ImageSrc = "Male-tutor-1440x960.jpeg" , Email = "mohamed.abdulaziz@gmail.com" ,Rate = 100
-                        ,Phone = "01002631470"},
-                    new Tutor { Id = 5 ,  Name = "Mohamed El-Hoseny",  Descrp  = "Mohamed specializes in physics tutoring, covering topics such as mechanics, thermodynamics, and electromagnetism.",
-                        Field = "Physics", ImageSrc = "201710_students_Johannsen_Shane_Tutoring_02.jpg", Rate = 20,
-                        Email = "mohamed.abdulaziz@gmail.com" , Phone = "01002631470"},
-                    // Add more items as needed
+                    new Tutor { Id = 7 ,  Name = "Jessica Pearson",  Descrp  = "An experienced math tutor with a passion for teaching USA History and Euorpe History.",
+                        Field = "History", ImageSrc = "http://emilcarlsson.se/assets/jessicapearson.png" , Email = "JessicaPearson@gmail.com" ,Rate = 100
+                        ,Phone = "01506806510"},
             };
         }
 
