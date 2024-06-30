@@ -402,6 +402,18 @@
         });
     });
 
+    document.addEventListener("click", function (event) {
+        const chatBox = document.getElementById("chatBox");
+        const chatBtn = document.getElementById("chat-btn");
+        const chatIcon = document.getElementById("message-icon");
+
+        if (chatBox.style.display === "flex" &&
+            !chatBox.contains(event.target) &&
+            !chatIcon.contains(event.target) &&
+            !chatBtn.contains(event.target)) {
+            chatBox.style.display = "none";
+        }
+    });
     function updateMessageCount(messageCount) {
         const messageBadge = document.getElementById("message-count");
         messageBadge.textContent = messageCount;
