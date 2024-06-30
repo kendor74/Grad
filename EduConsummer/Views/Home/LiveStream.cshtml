@@ -376,6 +376,7 @@
             if (message.trim() === '') {
                 return; // Do not send the message if the input is empty or only contains whitespace
             }
+            uid = 'Mohamed'
             connection.invoke("SendMessage", uid, message).catch(function (err) {
                 return console.error(err.toString());
             });
