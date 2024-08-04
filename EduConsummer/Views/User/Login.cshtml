@@ -37,7 +37,7 @@
                     <img src="~/Register/image/signup-img.jpg" alt="" />
                 </div>
                 <div class="signup-form formstyle">
-                    <form method="POST" class="register-form forming" id="register-form">
+                    <form class="register-form forming" id="register-form">
                         <h1>Login</h1>
 
                         <div class="form-group">
@@ -53,10 +53,9 @@
                         <div class="form-submit">
                             
                             <input type="submit"
-                                   value="Submit"
                                    class="submit"
-                                   name="submit"
-                                   id="submit" />
+                                   id="submit"
+                                   asp-action="UserProfile"/>
                         </div>
                     </form>
                 </div>
@@ -64,8 +63,6 @@
         </div>
     </div>
 
-    <!-- JS -->
-@*     <script src="~/Register/vendor/jquery/jquery.min.js"></script>
-    <script src="~/Register/js/main.js"></script> *@
+
 </body>
 </html>

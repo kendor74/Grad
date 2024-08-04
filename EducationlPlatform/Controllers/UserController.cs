@@ -75,7 +75,6 @@
             return (result ? Ok("Logged out") : BadRequest("could not logout"));
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("Get Users")]
         public async Task<IActionResult> GetUsers()
         {

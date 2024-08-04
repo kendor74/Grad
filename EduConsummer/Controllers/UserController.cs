@@ -11,6 +11,20 @@
 
         //TODO
 
+        User user = new User
+        {
+            Email = "Mohame@gmail.com",
+            UserName = "Mohamed#20",
+            FirstName = "Mohamed ",
+            LastName = "Abd-Allateaf",
+            Role = "Graduated",
+            City = "Cairo",
+            Gender = "Male",
+            PhoneNumber = "01142647033",
+            Age = 22,
+
+        };
+
         [HttpGet]
         public IActionResult SignUp()
         {
@@ -77,19 +91,7 @@
 
 
             //should display Student or Tutor
-            User user = new User
-            {
-                Email = "test@gmail.com",
-                UserName = "Test#20",
-                FirstName = "Test ",
-                LastName = "Test",
-                Role = "Stuendt",
-                City = "Cairo",
-                Gender = "Female",
-                PhoneNumber = "01142647033",
-                Age = 22,
-
-            };
+            user.LastName = "Abd-Allateaf Mahmoud";
             
                 if (user.Gender == "Female")
                     user.ImagePath = "FemaleIcon.png";
@@ -104,22 +106,10 @@
         [HttpGet]
         public ActionResult EditProfile()
         {
-            User user = new User
-            {
-                Email = "test@gmail.com",
-                UserName = "Test#20",
-                FirstName = "Test ",
-                LastName = "Test",
-                Role = "Stuendt",
-                City = "Cairo",
-                Gender = "Female",
-                PhoneNumber = "01142647033",
-                Age = 22,
-
-            };
+            
 
             ViewBag.Path = "";
-            user.ImagePath = "FemaleIcon.png";
+            user.ImagePath = "MaleIcon.png";
             return View(user);
         }
 
